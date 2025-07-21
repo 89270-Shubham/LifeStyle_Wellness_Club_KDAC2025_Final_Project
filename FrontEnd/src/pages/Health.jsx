@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from "recharts";
+import Sidenavbar from "../components/Sidenavbar";
 
 const heartRateData = [
   { time: "6 AM", bpm: 65 },
@@ -58,10 +59,11 @@ function Health() {
   return (
     
 
-    
+      
      <div className="container mt-4">
       <h2 className="text-center mb-4">🧑Personal Health Dashboard</h2>
 
+      {/* <Sidenavbar/> */}
       {/* Heart Rate */}
       <div className="row mb-5">
         <div className="col-md-6">

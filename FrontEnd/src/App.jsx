@@ -12,6 +12,7 @@ import AboutUs from './genericpages/AboutUs'
 import Profile from './pages/Profile'
 import Login from './authpages/Login';
 import Register from './authpages/Register';
+import Buymembership from './pages/Buymembership'
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="manage-members" element={<ManageMembers />} />
         <Route path="health" element={<Health />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="buymembership" element={<Buymembership />} />
 
 
       </Route>

@@ -15,7 +15,7 @@ function HomePage() {
           <p className="lead mt-3 mb-4">
             Your path to a healthier, balanced lifestyle begins here.
           </p>
-          <a href="#join" className="btn btn-success btn-lg">Join Now</a>
+          <a href="/home/buymembership" className="btn btn-success btn-lg">Join Now</a>
         </div>
       </section>
 
