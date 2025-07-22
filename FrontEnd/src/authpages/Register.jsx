@@ -1,13 +1,77 @@
 
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function Register() {
 
   const navigate = useNavigate();
+   const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [dob, setDob] = useState('')
+  const [address, setAddress] = useState('')
+  const [gender, setGender] = useState('')
+  const [occupation, setOccupation] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
-  const onRegister = () => {
-    console.log("Registered")
-    navigate("/")
+  const onRegister = async () => {
+
+     if (firstName.length == 0) {
+      toast.warn('please enter first name')
+    } else if (lastName.length == 0) {
+      toast.warn('please enter last name')
+    } else if (email.length == 0) {
+      toast.warn('please enter email')
+    }  else if (phone.length == 0) {
+      toast.warn('please enter phone number')
+    }
+     else if (dob.length == 0) {
+      toast.warn('please enter Date of Birth')
+    } 
+    
+     else if (address.length == 0) {
+      toast.warn('please enter Address')
+    }
+     else if (gender.length == 0) {
+      toast.warn('please choose Gender')
+    }
+    else if (occupation.length == 0) {
+      toast.warn('please enter Occupation')
+    }
+    
+    else if (password.length == 0) {
+      toast.warn('please enter password')
+    } else if (confirmPassword.length == 0) {
+      toast.warn('please confirm password')
+    } else if (password != confirmPassword) {
+      toast.warn('password does not match')
+    } else {
+      const result = await registerUser(
+        firstName,
+        lastName,
+        email,
+        phone,
+        password
+      )
+      if (!result) {
+        toast.error('Error while registering the user')
+      } else {
+        // check if result is "success" or "error"
+        if (result['status'] == 'success') {
+          toast.success('successfully registered a user')
+
+          // go back
+          navigate('/')
+        } else {
+          toast.error('Error while registering the user')
+        }
+      }
+    // toast.success("Registered User")
+    // navigate("/")
+     }
   }
 
   const onBack = () => {
@@ -65,11 +129,22 @@ function Register() {
         <div className='mb-3'>
           <label  className="form-label d-block fw-bold" htmlFor=''>Address</label>
           <input
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
             type='text'
             className='form-control'
           />
         </div>
+
+
+         <div className='mb-3'>
+          <label  className="form-label d-block fw-bold" htmlFor=''>Occupation</label>
+          <input
+            onChange={(e) => setOccupation(e.target.value)}
+            type='text'
+            className='form-control'
+          />
+        </div>
+
 
         <div className='mb-3'>
       <label className="form-label d-block fw-bold">Gender:</label>

@@ -13,6 +13,7 @@ import Profile from './pages/Profile'
 import Login from './authpages/Login';
 import Register from './authpages/Register';
 import Buymembership from './pages/Buymembership'
+import {ToastContainer} from 'react-toastify'
 
 function App() {
 
@@ -60,7 +61,7 @@ function App() {
       </Route>
 
     </Routes>
-
+    <ToastContainer/>
   </>
 }
 
