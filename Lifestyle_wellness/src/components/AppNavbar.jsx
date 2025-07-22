@@ -10,7 +10,6 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShareAlt, AiOutlineSearch } from 'react-icons/ai'
 import myContext from "./context/data/myContext";
-
 export default function AppNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
 
@@ -20,78 +19,35 @@ export default function AppNavbar() {
 
     // All NavList 
     const navList = (
-        <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-                style={{ color: mode === 'dark' ? 'white' : 'white' }}
-            >
-                <Link to={'/'} className="flex items-center">
-                    Home
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-                style={{ color: mode === 'dark' ? 'white' : 'white' }}
-            >
-                <Link to={'/allevents'} className="flex items-center">
-                    Events
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-                style={{ color: mode === 'dark' ? 'white' : 'white' }}
-            >
-                <Link to={'/gallery'} className="flex items-center">
-                    Gallery
-                </Link>
-            </Typography>
+       
+  <ul className="mb-4 mt-2 flex flex-row items-center gap-4 lg:mb-0 lg:mt-0 lg:gap-6">
+    <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
+      <Link to={'/'} className="flex items-center">Home</Link>
+    </Typography>
+    <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
+      <Link to={'/allevents'} className="flex items-center">AddEvents</Link>
+    </Typography>
+    
+    <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
+      <Link to={'/villas'} className="flex items-center">AddVillas</Link>
+    </Typography>
+    <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
+      <Link to={'/doctor'} className="flex items-center">AddDoctors</Link>
+    </Typography>
+    <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
+      <Link to={'/gallery'} className="flex items-center">Gallery</Link>
+    </Typography>
+    
+    <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
+      <Link to={'/aboutus'} className="flex items-center">About Us</Link>
+    </Typography>
+    <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
+      <Link to={'/contactus'} className="flex items-center">Contact Us</Link>
+    </Typography>
+  </ul>
+);
 
-             <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-                style={{ color: mode === 'dark' ? 'white' : 'white' }}
-            >
-                <Link to={'/villas'} className="flex items-center">
-                    Villas
-                </Link>
-            </Typography>
 
-             <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-                style={{ color: mode === 'dark' ? 'white' : 'white' }}
-            >
-                <Link to={'/aboutus'} className="flex items-center">
-                    About Us
-                </Link>
-            </Typography>
-
-             <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-                style={{ color: mode === 'dark' ? 'white' : 'white' }}
-            >
-                <Link to={'/contactus'} className="flex items-center">
-                    Contact Us
-                </Link>
-            </Typography>
-        </ul>
-    );
 
     return (
         <>
@@ -126,7 +82,7 @@ export default function AppNavbar() {
                     <div className="flex items-center gap-4">
 
                         {/* Navlist  */}
-                        <div className="hidden lg:block">
+                        <div>
                             {navList}
                         </div>
 
