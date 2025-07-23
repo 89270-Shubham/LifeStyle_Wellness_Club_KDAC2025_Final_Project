@@ -1,0 +1,56 @@
+import React, { useContext } from 'react'
+import myContext from './context/data/myContext';
+
+function Villalist() {
+    const context = useContext(myContext);
+    const { mode, villas } = context; // make sure villas is available in context
+
+    return (
+        <div className='container mx-auto px-4 max-w-7xl my-5'>
+            <h2 className="text-4xl font-bold text-amber-700 text-center">List of villas</h2>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-xl">
+                <table className="w-full border-2 border-white shadow-md text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead
+                        style={{
+                            background: mode === 'dark'
+                                ? 'white'
+                                : 'rgb(30, 41, 59)'
+                        }}
+                        className="text-xs"
+                    >
+                        <tr>
+                            <th style={{ color: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }} className="px-6 py-3">S.No</th>
+                            <th style={{ color: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }} className="px-6 py-3">Villa Image</th>
+                            <th style={{ color: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }} className="px-6 py-3">Villa Name</th>
+                            <th style={{ color: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }} className="px-6 py-3">Location</th>
+                            <th style={{ color: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }} className="px-6 py-3">Rent per night</th>
+                            <th style={{ color: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }} className="px-6 py-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {villas && villas.map((villa, index) => (
+                            <tr key={villa.id} className="border-b-2" style={{ background: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }}>
+                                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{index + 1}</td>
+                                <td className="px-6 py-4">
+                                    <img className='w-16 rounded-lg' src={villa.avatar} alt="villa" />
+                                </td>
+                                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.villa_name}</td>
+                                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.location}</td>
+                                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.rent}</td>
+                                <td className="px-6 py-4">
+                                    <button className='px-4 py-1 rounded-lg text-white font-bold bg-red-500'>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+export default Villalist;
+
+

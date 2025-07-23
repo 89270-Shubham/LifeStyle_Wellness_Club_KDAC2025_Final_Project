@@ -25,14 +25,14 @@ export default function AppNavbar() {
       <Link to={'/'} className="flex items-center">Home</Link>
     </Typography>
     <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
-      <Link to={'/allevents'} className="flex items-center">AddEvents</Link>
+      <Link to={'/addevents'} className="flex items-center">AddEvents</Link>
     </Typography>
     
     <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
-      <Link to={'/villas'} className="flex items-center">AddVillas</Link>
+      <Link to={'/addvilla'} className="flex items-center">AddVilla</Link>
     </Typography>
     <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
-      <Link to={'/doctor'} className="flex items-center">AddDoctors</Link>
+      <Link to={'/adddoctor'} className="flex items-center">AddDoctor</Link>
     </Typography>
     <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
       <Link to={'/gallery'} className="flex items-center">Gallery</Link>
