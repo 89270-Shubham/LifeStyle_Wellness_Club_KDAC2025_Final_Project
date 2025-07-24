@@ -17,6 +17,7 @@ import {ToastContainer} from 'react-toastify'
 import EventDetails from './pages/Eventdetails'
 import VillaDetails from './pages/VillaDetails'
 import MyEvents from './pages/MyEvents'
+import MyBookings from './pages/MyBookings';
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
         <Route path="health" element={<Health />} />
         <Route path="profile" element={<Profile />} />
         <Route path="buymembership" element={<Buymembership />} />
+        <Route path="mybookings" element={<MyBookings />} />
 
 
       </Route>
