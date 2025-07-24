@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -33,13 +34,16 @@ const villaData = [
 
 
 function Villas() {
+
+
+  const navigate = useNavigate();
+
     const [wishlist, setWishlist] = useState([]);
   const [booked, setBooked] = useState([]);
 
   const handleDetails = (villa) => {
-    alert(
-      `Details:\n\n${villa.name}\nLocation: ${villa.location}\nPrice: ${villa.price}\n\n${villa.description}`
-    );
+   navigate(`/home/villadetails/${villa.id}`, {state:{ villa}});
+   
   };
 
   const handleWishlist = (villaId) => {

@@ -14,6 +14,8 @@ import Login from './authpages/Login';
 import Register from './authpages/Register';
 import Buymembership from './pages/Buymembership'
 import {ToastContainer} from 'react-toastify'
+import EventDetails from './pages/Eventdetails'
+import VillaDetails from './pages/VillaDetails'
 
 function App() {
 
@@ -51,7 +53,9 @@ function App() {
 
         <Route index element={<HomePage />} />
         <Route path="events" element={<Events />} />
+        <Route path="events/:id" element={<EventDetails />} />
         <Route path="villas" element={<Villas />} />
+        <Route path="villadetails/:id" element={<VillaDetails />} />
         <Route path="manage-members" element={<ManageMembers />} />
         <Route path="health" element={<Health />} />
         <Route path="profile" element={<Profile />} />

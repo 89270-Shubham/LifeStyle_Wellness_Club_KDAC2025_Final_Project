@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 function Register() {
 
   const navigate = useNavigate();
-   const [firstName, setFirstName] = useState('')
+  const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -30,7 +30,7 @@ function Register() {
     }
      else if (dob.length == 0) {
       toast.warn('please enter Date of Birth')
-    } 
+    }
     
      else if (address.length == 0) {
       toast.warn('please enter Address')
@@ -79,156 +79,144 @@ function Register() {
   }
 
   return (
-    <div className='container'>
-      <h2 className='page-header'>Registeration Page</h2>
-      <div className='form'>
-        <div className='mb-3'>
-          <label className="form-label d-block fw-bold" htmlFor=''>First Name</label>
-          <input
-            onChange={(e) => setFirstName(e.target.value)}
-            type='text'
-            className='form-control'
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-7 col-md-9">
+          <div className="card shadow-lg border-0 rounded-4">
+            <div className="card-body p-5">
+              <h2 className="text-center mb-4 fw-bold text-success">Registration Page</h2>
 
-          />
-        </div>
-        <div className='mb-3'>
-          <label className="form-label d-block fw-bold" htmlFor=''>Last Name</label>
-          <input
-            onChange={(e) => setLastName(e.target.value)}
-            type='text'
-            className='form-control'
+              <div className="mb-3">
+                <label className="form-label fw-semibold">First Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
 
-          />
-        </div>
-        <div className='mb-3'>
-          <label className="form-label d-block fw-bold" htmlFor=''>Email</label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            type='email'
-            className='form-control'
-          />
-        </div>
-        <div className='mb-3'>
-          <label className="form-label d-block fw-bold" htmlFor=''>Phone Number</label>
-          <input
-            onChange={(e) => setPhone(e.target.value)}
-            type='tel'
-            className='form-control'
-          />
-        </div>
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Last Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
 
-        <div className='mb-3'>
-          <label className="form-label d-block fw-bold" htmlFor=''>Date Of Birth</label>
-          <input
-            onChange={(e) => setDob(e.target.value)}
-            type='date'
-            className='form-control'
-          />
-        </div>
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-        <div className='mb-3'>
-          <label  className="form-label d-block fw-bold" htmlFor=''>Address</label>
-          <input
-            onChange={(e) => setAddress(e.target.value)}
-            type='text'
-            className='form-control'
-          />
-        </div>
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Phone Number</label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
 
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Date of Birth</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  onChange={(e) => setDob(e.target.value)}
+                />
+              </div>
 
-         <div className='mb-3'>
-          <label  className="form-label d-block fw-bold" htmlFor=''>Occupation</label>
-          <input
-            onChange={(e) => setOccupation(e.target.value)}
-            type='text'
-            className='form-control'
-          />
-        </div>
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Address</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
 
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Occupation</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  onChange={(e) => setOccupation(e.target.value)}
+                />
+              </div>
 
-        <div className='mb-3'>
-      <label className="form-label d-block fw-bold">Gender:</label>
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Gender</label>
+                <div className="d-flex gap-3">
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      name="gender"
+                      value="Male"
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <label className="form-check-label">Male</label>
+                  </div>
 
-      <div className="form-check form-check-inline">
-        <input
-          className="form-check-input"
-          type="radio"
-          name="gender"
-          id="male"
-          value="Male"
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      name="gender"
+                      value="Female"
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <label className="form-check-label">Female</label>
+                  </div>
 
-          onChange={(e) => setGender(e.target.value)}
-        />
-        <label className="form-check-label" htmlFor="male">
-          Male
-        </label>
-      </div>
+                  <div className="form-check">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      name="gender"
+                      value="Other"
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <label className="form-check-label">Other</label>
+                  </div>
+                </div>
+              </div>
 
-      <div className="form-check form-check-inline">
-        <input
-          className="form-check-input"
-          type="radio"
-          name="gender"
-          id="female"
-          value="Female"
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-          onChange={(e) => setGender(e.target.value)}
-        />
-        <label className="form-check-label" htmlFor="female">
-          Female
-        </label>
-      </div>
+              <div className="mb-4">
+                <label className="form-label fw-semibold">Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
 
-      <div className="form-check form-check-inline">
-        <input
-          className="form-check-input"
-          type="radio"
-          name="gender"
-          id="other"
-          value="Other"
-          onChange={(e) => setGender(e.target.value)}
-        />
-        <label className="form-check-label" htmlFor="other">
-          Other
-        </label>
-      </div>
-        </div>
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <span>Already have an account?</span>
+                <button className="btn btn-link text-decoration-none" onClick={onBack}>
+                  Login here
+                </button>
+              </div>
 
-
-
-        <div className='mb-3'>
-          <label className="form-label d-block fw-bold" htmlFor=''>Password</label>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            type='password'
-            className='form-control'
-          />
-        </div>
-        <div className='mb-3'>
-          <label className="form-label d-block fw-bold" htmlFor=''>Confirm Password</label>
-          <input
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            type='password'
-            className='form-control'
-          />
-        </div>
-
-        <div className='mb-3'>
-          <div className='mb-3'>
-            Already have an account?{' '}
-            <button
-              onClick={onBack}
-              className='btn btn-link'
-            >
-              Login here
-            </button>
+              <button className="btn btn-success w-100 rounded-pill fw-semibold" onClick={onRegister}>
+                Register
+              </button>
+            </div>
           </div>
-          <button
-            onClick={onRegister}
-            className='btn btn-success'
-          >
-            Register
-          </button>
         </div>
       </div>
     </div>

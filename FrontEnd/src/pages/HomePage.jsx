@@ -55,9 +55,9 @@ function HomePage() {
           <h2 className="mb-5">Membership Plans</h2>
           <div className="row">
             {[
-              { title: "Basic", price: "$29/mo" },
-              { title: "Standard", price: "$49/mo" },
-              { title: "Premium", price: "$79/mo" },
+              { title: "Basic", price: "9999/10-years" },
+              { title: "Standard", price: "19999/10-years" },
+              { title: "Premium", price: "34999/10-years" },
             ].map((plan, index) => (
               <div key={index} className="col-md-4 mb-4">
                 <div className="card h-100 border-success">
