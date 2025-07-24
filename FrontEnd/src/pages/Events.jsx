@@ -1,10 +1,6 @@
-
-
-
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Sidebar from './../components/Sidebar';
 
 const wellnessEvents = [
   {
@@ -71,34 +67,36 @@ const Events = () => {
       alert('Already enrolled!');
     }
   };
-  
 
   const handleDetails = (event) => {
     navigate(`/home/events/${event.id}`, { state: { event } });
   };
 
   return (
-    <div className="container my-4">
-      <h2 className="text-center mb-4">Events</h2>
-      <div className="row">
-        {wellnessEvents.map((event) => (
-          <div className="col-md-6 col-lg-4 mb-4" key={event.id}>
-            <div className="card h-100 shadow-sm">
-              <img src={event.image} alt={event.name} className="card-img-top" style={{ height: 250 }} />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">{event.name}</h5>
-                <p className="card-text"><strong>Date:</strong> {event.date}</p>
-                <p className="card-text"><strong>Location:</strong> {event.location}</p>
-                <p className="card-text text-muted">{event.description}</p>
-                <div className="mt-auto">
-                  <button onClick={() => handleDetails(event)} className="btn btn-outline-primary btn-sm me-2">Details</button>
-                  <button onClick={() => handleAddToWishlist(event.id)} className="btn btn-outline-warning btn-sm me-2">Wishlist</button>
-                  <button onClick={() => handleEnroll(event.id)} className="btn btn-success btn-sm">Enroll</button>
+    <div className="d-flex">
+      <Sidebar />
+      <div className="container my-4" style={{ marginLeft: '220px' }}>
+        <h2 className="text-center mb-4">Events</h2>
+        <div className="row">
+          {wellnessEvents.map((event) => (
+            <div className="col-md-6 col-lg-4 mb-4" key={event.id}>
+              <div className="card h-100 shadow-sm">
+                <img src={event.image} alt={event.name} className="card-img-top" style={{ height: 250 }} />
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title">{event.name}</h5>
+                  <p className="card-text"><strong>Date:</strong> {event.date}</p>
+                  <p className="card-text"><strong>Location:</strong> {event.location}</p>
+                  <p className="card-text text-muted">{event.description}</p>
+                  <div className="mt-auto">
+                    <button onClick={() => handleDetails(event)} className="btn btn-outline-primary btn-sm me-2">Details</button>
+                    <button onClick={() => handleAddToWishlist(event.id)} className="btn btn-outline-warning btn-sm me-2">Wishlist</button>
+                    <button onClick={() => handleEnroll(event.id)} className="btn btn-success btn-sm">Enroll</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
