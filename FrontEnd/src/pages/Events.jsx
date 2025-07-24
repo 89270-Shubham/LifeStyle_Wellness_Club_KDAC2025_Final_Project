@@ -71,6 +71,7 @@ const Events = () => {
       alert('Already enrolled!');
     }
   };
+  
 
   const handleDetails = (event) => {
     navigate(`/home/events/${event.id}`, { state: { event } });

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 function Register() {
 
   const navigate = useNavigate();
-   const [firstName, setFirstName] = useState('')
+  const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -30,7 +30,7 @@ function Register() {
     }
      else if (dob.length == 0) {
       toast.warn('please enter Date of Birth')
-    } 
+    }
     
      else if (address.length == 0) {
       toast.warn('please enter Address')
