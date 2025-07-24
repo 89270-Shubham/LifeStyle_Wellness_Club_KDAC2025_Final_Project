@@ -39,7 +39,7 @@ export default function AppNavbar() {
     </Typography>
     
     <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
-      <Link to={'/aboutus'} className="flex items-center">About Us</Link>
+      <Link to={'/about'} className="flex items-center">About Us</Link>
     </Typography>
     <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal" style={{ color: mode === 'dark' ? 'white' : 'white' }}>
       <Link to={'/contactus'} className="flex items-center">Contact Us</Link>
