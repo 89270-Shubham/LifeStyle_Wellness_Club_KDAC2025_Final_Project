@@ -29,8 +29,20 @@ import UpdateVilla from './adminpages/UpdateVilla';
 import Gallery from './adminpages/Gallery';
 import MyState from '../src/admincontext/MyState';
 import Home from './adminpages/Home';
+import AdminRegister from './adminauthpage/AdminRegister';
+import { useState } from 'react';
+import DoctorForm from './admincomponent/DoctorForm';
+import DoctorList from './admincomponent/DoctorList';
+import BookingsPage from './adminpages/BookingsPage';
+import UsersPage from './adminpages/UsersPage';
+import MemberList from './admincomponent/MemberList';
+import TransactionsPage from './adminpages/TransactionsPage';
+
 
 function App() {
+
+  const [doctors, setDoctors] = useState([]);
+
   return (
     <MyState>
     
@@ -66,6 +78,26 @@ function App() {
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/update-event/:id' element={<UpdateEvent />} />
           <Route path='/update-villa/:id' element={<UpdateVilla />} />
+
+          <Route path='/registeradmin' element={<AdminRegister />} />
+
+
+          {/* Sakshi's Routes  */}
+
+        <Route path="/adminregister" element={<AdminRegister />} />
+        <Route path="/homeadmin" element={<Home />} />
+        <Route path="/members" element={<MemberList />} />
+        <Route path="/add-doctor" element={<DoctorForm setDoctors={setDoctors} />} />
+        <Route path="/doctors" element={<DoctorList doctors={doctors} />} />
+        <Route path="/bookings" element={<BookingsPage />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/transactions" element={<TransactionsPage />} />
+
+
+
+
+
+
         </Routes>
 
         <ToastContainer />

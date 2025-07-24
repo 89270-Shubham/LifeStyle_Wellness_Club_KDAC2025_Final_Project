@@ -1,17 +1,14 @@
+import React from 'react';
+import AdminDashboard from '../admincomponent/AdminDashBoard';
+import CardGrid from '../admincomponent/Cardgrid'
 
-import AppNavbar from "../admincomponent/AppNavbar";
+export default function Home() {
+  return (
+    <div>
 
-const Home = () =>
-{
-    return (
-        <>
-        <AppNavbar />
-        <div className="p-4 text-center text-white">
-            <h1 className="text-3xl font-bold mb-4">welcome to home page</h1>
-        </div>
-        </>
-    )
+        <CardGrid />
 
+      <AdminDashboard />
+    </div>
+  );
 }
-
-export default Home
