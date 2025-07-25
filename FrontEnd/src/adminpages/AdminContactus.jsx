@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { FaUser, FaEnvelope, FaCommentDots } from "react-icons/fa";
-import AppNavbar from "../admincomponent/AppNavbar";
+
 
 export default function AdminContactus() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -29,7 +29,7 @@ export default function AdminContactus() {
 
   return (
     <>
-      <AppNavbar />
+  
       <div className="bg-gray-50 min-h-screen flex items-center justify-center py-8">
         <div className="max-w-2xl w-full mx-4 bg-white shadow-xl rounded-2xl p-8">
           <h2 className="text-3xl font-bold text-center text-blue-600 mb-4">Contact Us</h2>

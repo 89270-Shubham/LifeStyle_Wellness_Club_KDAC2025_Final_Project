@@ -37,6 +37,8 @@ import BookingsPage from './adminpages/BookingsPage';
 import UsersPage from './adminpages/UsersPage';
 import MemberList from './admincomponent/MemberList';
 import TransactionsPage from './adminpages/TransactionsPage';
+import AdminLayout from './admincomponent/AdminLayout';
+
 
 
 function App() {
@@ -66,9 +68,14 @@ function App() {
           </Route>
 
           {/* Admin routes */}
-          <Route path='/admin' element={<Home />} />
-          <Route path='/login' element={<AdminLogin />} />
-          <Route path='/addevents' element={<AddEvents />} />
+      
+
+
+
+
+
+           <Route path='/login' element={<AdminLogin />} />
+          
           <Route path='/eventlist' element={<Eventlist />} />
           <Route path='/addvilla' element={<AddVilla />} />
           <Route path='/villalist' element={<Villalist />} />
@@ -93,12 +100,28 @@ function App() {
         <Route path="/users" element={<UsersPage />} />
         <Route path="/transactions" element={<TransactionsPage />} />
 
-
-
-
-
-
         </Routes>
+          <Routes>
+            <Route path='admin' element={<AdminLayout />}>
+            <Route index element={<Home />}/>
+            <Route path='addevents' element={<AddEvents />} />
+            <Route path='adddoctor' element={<AddDoctor />} />
+            <Route path='addvilla' element={<AddVilla />} />
+       
+
+             <Route path='aboutus' element={<AdminAboutus/>} />
+             <Route path='contactus' element={<AdminContactus/>} />
+             <Route path='bookingpage' element={<BookingsPage/>} />
+             <Route path='eventlist' element={<Eventlist/>} />
+             <Route path='gallery' element={<Gallery/>} />
+              <Route path='transactionpage' element={<TransactionsPage/>} />
+             <Route path='updateevent' element={<UpdateEvent/>} />
+              <Route path='updatevilla' element={<UpdateVilla/>} />
+            </Route>
+              <Route path='userpage' element={<UsersPage/>} />
+
+             <Route path='villalist' element={<Villalist/>} />
+          </Routes>
 
         <ToastContainer />
       
