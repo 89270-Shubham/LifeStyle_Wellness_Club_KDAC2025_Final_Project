@@ -7,45 +7,46 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { AiOutlineShareAlt, AiOutlineSearch } from 'react-icons/ai';
+import { MdStarPurple500 } from "react-icons/md";
 
 export default function AppNavbar() {
     const [openNav, setOpenNav] = useState(false);
 
     const navList = (
-        <ul className="mb-4 mt-2 flex flex-row items-center gap-4 lg:mb-0 lg:mt-0 lg:gap-6">
+        <ul className="mb-4 mt-2 flex flex-row items-center font-bold gap-4 lg:mb-0 lg:mt-0 lg:gap-6 text-lg">
             <li className="p-1 font-normal">
-                <Link to='/' style={{ color: 'black' }}>Home</Link>
+                <Link to='/' style={{ color: 'white' }}>Home</Link>
             </li>
             <li className="p-1 font-normal">
-                <Link to='/addevents' style={{ color: 'black' }}>AddEvents</Link>
+                <Link to='/admin/addevents' style={{ color: 'white' }}>AddEvents</Link>
             </li>
             <li className="p-1 font-normal">
-                <Link to='/addvilla' style={{ color: 'black' }}>AddVilla</Link>
+                <Link to='/admin/addvilla' style={{ color: 'white' }}>AddVilla</Link>
             </li>
             <li className="p-1 font-normal">
-                <Link to='/adddoctor' style={{ color: 'black' }}>AddDoctor</Link>
+                <Link to='/admin/adddoctor' style={{ color: 'white' }}>AddDoctor</Link>
             </li>
             <li className="p-1 font-normal">
-                <Link to='/gallery' style={{ color: 'black' }}>Gallery</Link>
+                <Link to='/admin/gallery' style={{ color: 'white' }}>Gallery</Link>
             </li>
             <li className="p-1 font-normal">
-                <Link to='/about' style={{ color: 'black' }}>About Us</Link>
+                <Link to='/admin/aboutus' style={{ color: 'white' }}>About Us</Link>
             </li>
             <li className="p-1 font-normal">
-                <Link to='/contactus' style={{ color: 'black' }}>Contact Us</Link>
+                <Link to='/admin/contactus' style={{ color: 'white' }}>Contact Us</Link>
             </li>
         </ul>
     );
 
     return (
         <Navbar
-            className="sticky inset-0 z-20 h-max max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-2"
-            style={{ background: 'rgba(30, 78, 154, 1)' }}  // use proper rgba as string
+            className="sticky inset-0 z-20 h-max max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-2 bg-stone-800"
+             // use proper rgba as string
         >
             <div className="flex items-center justify-between">
                 {/* Logo */}
                 <Link to='/'>
-                    <span className="mr-4 cursor-pointer py-1.5 text-xl font-bold flex gap-2 items-center" style={{ color: 'black' }}>
+                    <span className="mr-4 cursor-pointer py-1.5 text-xl font-bold flex gap-2 items-center" style={{ color: 'white' }}>
                         Healthy Horizon
                     </span>
                 </Link>
