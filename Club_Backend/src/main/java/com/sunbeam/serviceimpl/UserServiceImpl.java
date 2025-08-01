@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.sunbeam.dao.UserDao;
 import com.sunbeam.dto.UserDto;
+import com.sunbeam.dto.UserLoginDto;
 import com.sunbeam.entities.User;
+import com.sunbeam.globalexceptionhandler.AuthenticationFailureException;
 import com.sunbeam.services.UserService;
 
 @Service
@@ -30,6 +32,15 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.save(user);
 		
+	}
+
+	@Override
+	public User userLogin(UserLoginDto dto) {
+		User entity=
+				userDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword())
+				.orElseThrow(() -> new AuthenticationFailureException("Invalid email or password"));
+			
+				return entity;
 	}
 
 }
