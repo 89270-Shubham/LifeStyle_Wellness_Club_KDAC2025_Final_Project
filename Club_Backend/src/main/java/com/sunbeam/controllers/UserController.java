@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.UserDto;
+import com.sunbeam.dto.UserLoginDto;
 import com.sunbeam.services.UserService;
 
 @RestController
@@ -25,8 +26,11 @@ public class UserController {
 	}
 	
 	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody UserLoginDto dto){
+		return ResponseEntity.ok(
+				userServiceImpl.userLogin(dto));
+		
+	}
 	
-//	public ResponseEntity<?> login(@RequestBody )
-	
-
 }
