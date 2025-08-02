@@ -2,11 +2,10 @@ package com.sunbeam.serviceimpl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import com.sunbeam.dao.EventDao;
-import com.sunbeam.entities.Events;
+import com.sunbeam.dto.GetUserEventDto;
 import com.sunbeam.services.EventService;
 
 import jakarta.transaction.Transactional;
@@ -16,14 +15,24 @@ import lombok.AllArgsConstructor;
 @Transactional
 @AllArgsConstructor
 public class EventServiceImpl implements EventService{
+
 	
 	
-	private EventDao eventDao;
+	private final EventDao eventDao;
+	
+	private final ModelMapper modelMapper;
+
+	
+	
 
 	@Override
-	public List<Events> getAllAvailableEvents() {
+	public List<GetUserEventDto> getAllAvailableEvents() {
 		
-		return eventDao.findAll();
+		return eventDao.findAll().stream().map(entity->modelMapper.map(entity,GetUserEventDto.class)).toList();
 	}
+
+
+
+	
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sunbeam.dto.GetUserEventDto;
 import com.sunbeam.dto.UserDto;
 import com.sunbeam.dto.UserLoginDto;
 import com.sunbeam.entities.Events;
@@ -48,14 +49,21 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/events")
+	@GetMapping("/user/events")
 	public ResponseEntity<?> getAllEvents(){
 		
-		List<Events> list = eventService.getAllAvailableEvents();
+		List<GetUserEventDto> list = eventService.getAllAvailableEvents();
 		
 		if(list.isEmpty())
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		
 		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping("/user/profile")
+	public ResponseEntity<?> getMyProfile(){
+		
+		
+		return null;
 	}
 }
