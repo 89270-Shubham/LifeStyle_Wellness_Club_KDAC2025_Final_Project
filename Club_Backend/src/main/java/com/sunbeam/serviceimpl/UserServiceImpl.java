@@ -1,6 +1,5 @@
 package com.sunbeam.serviceimpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.dao.UserDao;
@@ -10,10 +9,14 @@ import com.sunbeam.entities.User;
 import com.sunbeam.globalexceptionhandler.AuthenticationFailureException;
 import com.sunbeam.services.UserService;
 
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+@Transactional
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 	
-	@Autowired
+	
 	private UserDao userDao;
 
 	@Override
