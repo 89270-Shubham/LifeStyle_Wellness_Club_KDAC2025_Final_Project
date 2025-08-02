@@ -1,7 +1,6 @@
 package com.sunbeam.entities;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import com.sunbeam.enums.Gender;
 import com.sunbeam.enums.Status;
@@ -15,7 +14,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
