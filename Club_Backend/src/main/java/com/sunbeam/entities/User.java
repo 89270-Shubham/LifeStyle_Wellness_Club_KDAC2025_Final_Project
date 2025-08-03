@@ -15,9 +15,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 
@@ -28,6 +30,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "users", schema = "club")
+@ToString(callSuper =true, exclude="villas")
+
+@EqualsAndHashCode(of="name", callSuper=false)
 public class User extends SupperClass{
 
     @Id
@@ -72,6 +77,8 @@ public class User extends SupperClass{
     private Status status = Status.ACTIVE;
 
 
+    @OneToMany(mappedBy="myusers", cascade=CascadeType.All, orphanRemoval=true)
+    private List<Villa> 
 
 
     
