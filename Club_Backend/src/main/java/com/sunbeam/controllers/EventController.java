@@ -34,7 +34,6 @@ import lombok.AllArgsConstructor;
 
 @CrossOrigin(origins = "http://localhost:4000")
 
-
 @Transactional
 
 public class EventController {
