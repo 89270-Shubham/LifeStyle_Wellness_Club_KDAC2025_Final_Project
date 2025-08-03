@@ -9,4 +9,6 @@ public interface AddEventDao extends JpaRepository<Events, Long>
 	
 	boolean existsByName(String eventName);
 	
+    
+	
 }

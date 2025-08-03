@@ -62,14 +62,23 @@ public class AddEventServiceImp implements AddEventService {
 
 
 	@Override
-	public ApiResponse deleteDetails(@PathVariable Long id) {
+	public ApiResponse deleteDetails(Long id) {
 	   Events event = addeventdao.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Restaurant not found - invalid ID!!!!"));
 		// => restaurant : PERSISTENT
 		// set status : false
-		event.setStatus(Status.ACTIVE);
+		event.setStatus(Status.INACTIVE);
 		return new ApiResponse("Soft deleted events details");
 
+	}
+
+	
+
+	@Override
+	public AddEventDto getEventDetails(Long id) {
+	  Events entity= addeventdao.findById(id).orElseThrow(()-> new ResourceNotFoundException("Invalid Event Id !!!"));
+		
+		return modelmapper.map(entity, AddEventDto.class);
 	}
 
 }

@@ -26,12 +26,11 @@ import lombok.Setter;
 @Entity
 @Table
 public class Events extends SupperClass {
-	
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 
 	private String description;
@@ -39,7 +38,7 @@ public class Events extends SupperClass {
 	private String location;
 
 	private LocalDate start_time;
-	
+
 	private LocalDate end_time;
 
 	private String organiser_name;
@@ -47,9 +46,9 @@ public class Events extends SupperClass {
 	private String event_type;
 
 	private Long fee;
-	
+
 	private Status status;
-	
+
 	private String created_by;
 
 }
