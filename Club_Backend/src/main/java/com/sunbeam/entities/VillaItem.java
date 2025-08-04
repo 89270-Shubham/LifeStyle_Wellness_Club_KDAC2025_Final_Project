@@ -49,7 +49,7 @@ public class VillaItem {
 	public VillaItem(String name, String location, int rentpernight, int numberOfBedrroms, int numberOfBathrooms, int capacity, String details )
 	{
 		super();
-		this.name = name;
+		this.name = name; 
 		this.location= location;
 		this.rentpernight = rentpernight;
 		this.numberOfBedrooms = numberOfBedrooms;

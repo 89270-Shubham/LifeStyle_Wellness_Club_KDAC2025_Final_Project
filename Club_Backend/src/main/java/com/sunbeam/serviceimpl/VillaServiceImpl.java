@@ -12,6 +12,7 @@ import com.sunbeam.dao.VillaDao;
 import com.sunbeam.dto.AddVillaDto;
 import com.sunbeam.dto.VillaDto;
 import com.sunbeam.entities.Villa;
+import com.sunbeam.enums.Status;
 import com.sunbeam.globalexceptionhandler.InvalidInputException;
 import com.sunbeam.globalexceptionhandler.ResourceNotFoundException;
 import com.sunbeam.services.VillaService;
@@ -24,63 +25,81 @@ import lombok.AllArgsConstructor;
 
 public class VillaServiceImpl implements VillaService {
 
+//    private final WebConfig webConfig;
+
 	
 	private final VillaDao villadao;
 	private final ModelMapper modelMapper;
+
+  
 	
 	@Override
-	public List<VillaDto> getAvailableVillas()
+	public List<Villa> getAllVillas()
 	{
-		return villadao.findByStatusTrue()
+		return villadao.findAll()
 				.stream()
-				.map(entity -> modelMapper.map(entity, VillaDto.class))
 				.toList();
 	}
 	
 	@Override
-	public ApiResponse addNewVilla(AddVillaDto dto)
-	{
-		if (villadao.existsByname(dto.getName()))
-			throw new InvalidInputException("Dupliacte Villa name ");
-		
-		Villa entity = modelMapper.map(dto,  Villa.class);
-		
-		entity.setStatus(true);
-		
-		Villa persistentEntity = villadao.save(entity);
-		return new ApiResponse("Added new Villa with id" + persistentEntity.getId());
+	public ApiResponse addNewVilla(AddVillaDto newVillaDto) {
+	    if (villadao.existsByName(newVillaDto.getName()))
+//	        throw new InvalidInputException("Duplicate Villa name");
+
+	    System.out.println("DTO received: " + newVillaDto);
+
+	    // Corrected variable name in mapping
+	    Villa entity = modelMapper.map(newVillaDto, Villa.class);
+
+	    System.out.println("Entity after mapping: " + entity); 
+
+	    entity.setStatus(Status.ACTIVE);
+
+	    Villa persistentEntity = villadao.save(entity);
+	    return new ApiResponse("Added new Villa with id " + persistentEntity.getId());
 	}
 
-//	@Override
-//	public ApiResponse deleteDetails(Long id) {
-//	     Optional<Villa> villa = villadao.findById(id)
-//	    		 .orElseThrow(() -> new ResourceNotFoundException("Villa not found "));
-//	     villa.setStatus(false);
-//	     return new ApiResponse("soft deleted");
-//	
-//	}
+	
+	
+
+
 
 	@Override
-	public VillaDto getVillaDetailas(Long id) {
-		Villa entity = villadao.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid villa id"));
+	public ApiResponse deleteDetails(Long id) {
+	     Villa villa = villadao.findById(id).orElseThrow(()-> new ResourceNotFoundException("Villa not Found"));
+	     villa.setStatus(Status.INACTIVE);
+	     return new ApiResponse("soft deleted");
+	
+	}
+
+	@Override
+	public VillaDto getVillaDetails(Long id) {
+		Villa entity = villadao.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
 		return modelMapper.map(entity, VillaDto.class);
 	}
 
 	@Override
 	public ApiResponse updateVilla(Long id, AddVillaDto dto) {
-		if (villadao.existsByname(dto.getName()))
+		if (villadao.existsById(id))
 			throw new InvalidInputException("Duplicate villa name ");
-		Villa entity = villadao.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid villa id"));
-		modelMapper.map(dto, entity);
 		
-		return new ApiResponse("updated villa details ");
+		Villa entity = modelMapper.map(dto, Villa.class);
+		Villa persistentEntity = villadao.save(entity);
+		return new ApiResponse("Updated new Villa with id" + persistentEntity.getId());
+		
+		
+		
+	}
+	
+	//find villa by status true
+	@Override
+	public List<VillaDto> getAllAvaliableVillas()
+	{
+		return villadao.findAll()
+				.stream()
+				.map(entity -> modelMapper.map(entity, VillaDto.class))
+				.toList();
 	}
 
-	@Override
-	public ApiResponse deleteDetails(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
