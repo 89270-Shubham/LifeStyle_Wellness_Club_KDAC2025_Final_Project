@@ -2,8 +2,7 @@ package com.sunbeam.entities;
 
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import com.sunbeam.enums.Status;
 import com.sunbeam.supperclass.SupperClass;
@@ -16,12 +15,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "villas")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+
+
 public class Villa extends SupperClass{
 
     @Id

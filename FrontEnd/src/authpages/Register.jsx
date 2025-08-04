@@ -2,6 +2,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { registerUser } from '../services/user';
+
 
 function Register() {
 
@@ -19,29 +21,29 @@ function Register() {
 
   const onRegister = async () => {
 
-     if (firstName.length == 0) {
+    if (firstName.length == 0) {
       toast.warn('please enter first name')
     } else if (lastName.length == 0) {
       toast.warn('please enter last name')
     } else if (email.length == 0) {
       toast.warn('please enter email')
-    }  else if (phone.length == 0) {
+    } else if (phone.length == 0) {
       toast.warn('please enter phone number')
     }
-     else if (dob.length == 0) {
+    else if (dob.length == 0) {
       toast.warn('please enter Date of Birth')
     }
-    
-     else if (address.length == 0) {
+
+    else if (address.length == 0) {
       toast.warn('please enter Address')
     }
-     else if (gender.length == 0) {
+    else if (gender.length == 0) {
       toast.warn('please choose Gender')
     }
     else if (occupation.length == 0) {
       toast.warn('please enter Occupation')
     }
-    
+
     else if (password.length == 0) {
       toast.warn('please enter password')
     } else if (confirmPassword.length == 0) {
@@ -54,24 +56,23 @@ function Register() {
         lastName,
         email,
         phone,
+        dob,
+        address,
+        gender,
+        occupation,
         password
       )
-      if (!result) {
-        toast.error('Error while registering the user')
-      } else {
-        // check if result is "success" or "error"
-        if (result['status'] == 'success') {
-          toast.success('successfully registered a user')
-
-          // go back
+      console.log(result)
+      if (result) {
+        toast.success('success')
           navigate('/')
-        } else {
-          toast.error('Error while registering the user')
-        }
+      } else {
+        toast.error('failed')
+       
       }
-    // toast.success("Registered User")
-    // navigate("/")
-     }
+      // toast.success("Registered User")
+      // navigate("/")
+    }
   }
 
   const onBack = () => {

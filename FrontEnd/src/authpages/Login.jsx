@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// import { toast } from 'react-toastify';
-import { AuthContext } from '../context/auth.context';
-// import { loginUser } from '../services/user';
+import { toast } from 'react-toastify';
+// import { AuthContext } from '../context/auth.context';
+import { loginUser } from '../services/user';
 
 
 
@@ -18,43 +18,46 @@ function Login() {
   const [email,setEmail] = useState("")
   const[password,setPassword] = useState("")
 
-  const onLogin =  () => {
+  const onLogin = async () => {
     if(email.length==0){
       toast.warn("Please enter email")
     }else if(password.length==0){
       toast.warn("Please enter password")
     }else {
-      // const result= await loginUser(email,password)
-      // if (!result) {
-      //   toast.error('Error while login')
-      // } else {
-      // if(!result['status']=='success'){
-      //   const { firstName, lastName, token } = result['data']
+      const result = await loginUser(email,password)
+      
+      if (!result) {
+        toast.error('Error while login')
+      } else {
+      if(result.status=='200'){
+        const { firstName, lastName, userId } = result['data']
 
-      //     // persist the information in session storage
+          // persist the information in session storage
 
-      //     sessionStorage.setItem('firstName', firstName)
-      //     sessionStorage.setItem('lastName', lastName)
-      //     sessionStorage.setItem('token', token)
+          sessionStorage.setItem('firstName', firstName)
+          sessionStorage.setItem('lastName', lastName)
+          sessionStorage.setItem('id', userId)
+          console.log(result['data'])
+          // sessionStorage.setItem('token', token)
 
-      //     // set the user details in the AuthContext
-      //     setUser({
-      //       firstName,
-      //       lastName,
-      //     })
+          // set the user details in the AuthContext
+          // setUser({
+          //   userId,
+          //   firstName,
+          //   lastName,
+          // })
 
-      //     console.log('result: ', result)
-      //     toast.success('Welcome to application')
+          
+          toast.success('Welcome to application')
 
-      //     // navigate to home screen
-      //     navigate('/home')
-      //   } else {
-      //     toast.error('Invalid email or password')
-      //   }
+          // navigate to home screen
+          navigate('/home')
+        } else {
+          toast.error('Invalid email or password')
+        }
 
-      // }
-      toast.success("Logged In Successfully")
-      navigate('/home')
+      }
+      
     }
   
   }
