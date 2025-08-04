@@ -2,32 +2,35 @@ package com.sunbeam.dto;
 
 import java.time.LocalDate;
 
-import org.springframework.stereotype.Service;
 
 import com.sunbeam.enums.Gender;
-
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 @Getter
-@Service
+@Setter
+@ToString
 public class ProfileDto {
 	
-	private String id;
-	
-	private String email;
 
-    private String password;
+	  private Integer userId;
 
-    private String firstName;
+	    private String email;
 
-    private String lastName;
-    
-    private LocalDate dob;
+	    private String password;
 
-    private Gender gender;
+	    private String firstName;
 
-    private String phone;
+	    private String lastName;
+	    
+	    private LocalDate dob;
 
-    private String address;
+	    private Gender gender;
 
-    private String occupation;
+	    private String phone;
+
+	    private String address;
+
+	    private String occupation;
+
 }

@@ -10,8 +10,8 @@ import com.sunbeam.entities.Villa;
 
 public interface VillaDao extends JpaRepository<Villa, Long>{
 
-	List<Villa> findByStatusTrue();
-	boolean existsByname(String name);
-	@Query("select v from Villa v left join fetch v.villaitems where v.id=:id")
-	Optional<Villa> findById(Long id);
+//	List<Villa> findByStatusTrue();
+//	boolean existsByname(String name);
+//	@Query("select v from Villa v left join fetch v.villaitems where v.id=:id")
+//	Optional<Villa> findById(Long id);
 }

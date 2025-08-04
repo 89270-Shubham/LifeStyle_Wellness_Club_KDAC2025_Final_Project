@@ -13,21 +13,23 @@ export async function loginUser(email, password) {
             email,
             password,
         }
-
+        
         // call Post API
         const response = await axios.post(url, body)
 
         // check if response is OK
+        console.log(response)
+        console.log(response.status)
         if (response.status == 200) {
             // send the response body
-            return response.data
+            return response
         } else {
             // send null result
             return null
         }
     } catch (ex) {
         console.log(`exception: `, ex)
-        
+
     }
 }
 
@@ -41,10 +43,10 @@ export async function registerUser(
     address,
     gender,
     occupation,
-    password,
+    password
 ) {
     try {
-        // create the required url
+
         const url = `${config.serverURL}/user/register`
 
         // create the request body

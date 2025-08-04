@@ -2,15 +2,13 @@ package com.sunbeam.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +17,7 @@ import com.sunbeam.dto.GetUserEventDto;
 import com.sunbeam.dto.ProfileDto;
 import com.sunbeam.dto.UserDto;
 import com.sunbeam.dto.UserLoginDto;
-
+import com.sunbeam.entities.User;
 import com.sunbeam.services.UserService;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +44,7 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserLoginDto dto){
+		System.out.println("in sign in "+dto);
 		return ResponseEntity.ok(
 				userServiceImpl.userLogin(dto));
 		
@@ -63,16 +62,28 @@ public class UserController {
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping(value = "/profile/{id}")
+	@GetMapping("/profile/{id}")
 	public ResponseEntity<?> getMyProfile(@PathVariable Long id){
 		
 		
 		ProfileDto profile = userServiceImpl.getMyProfile(id);
 		
-		if(profile == null)
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		
-		return ResponseEntity.ok().body(profile);
+		return ResponseEntity.ok(profile);
 
 	}
+	
+	@PutMapping("/profile/{id}")
+	public ResponseEntity<?> updateDetails(@PathVariable 
+			Long id, @RequestBody ProfileDto dto) {
+		System.out.println("in update "+id+" dto");
+
+			return ResponseEntity.ok(
+					userServiceImpl.updateProfile(id, dto));
+
+		
+	}
+
+
+	
 }
