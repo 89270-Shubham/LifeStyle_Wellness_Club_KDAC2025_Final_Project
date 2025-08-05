@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sunbeam.apiresponse.ApiResponse;
+import com.sunbeam.config.WebConfig;
 import com.sunbeam.dao.VillaDao;
 import com.sunbeam.dto.AddVillaDto;
 import com.sunbeam.dto.VillaDto;
@@ -17,6 +18,9 @@ import com.sunbeam.globalexceptionhandler.InvalidInputException;
 import com.sunbeam.globalexceptionhandler.ResourceNotFoundException;
 import com.sunbeam.services.VillaService;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @Service // class level annotation to declare spring bean - B.L
@@ -44,7 +48,7 @@ public class VillaServiceImpl implements VillaService {
 	@Override
 	public ApiResponse addNewVilla(AddVillaDto newVillaDto) {
 	    if (villadao.existsByName(newVillaDto.getName()))
-//	        throw new InvalidInputException("Duplicate Villa name");
+	        throw new InvalidInputException("Duplicate Villa name");
 
 	    System.out.println("DTO received: " + newVillaDto);
 
@@ -99,6 +103,18 @@ public class VillaServiceImpl implements VillaService {
 				.stream()
 				.map(entity -> modelMapper.map(entity, VillaDto.class))
 				.toList();
+	}
+
+	@Override
+	public VillaDto getById(@NotNull @Min(1) @Max(100) Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VillaDto update(Long id, VillaDto updateVilla) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

@@ -10,6 +10,9 @@ import com.sunbeam.dto.VillaDto;
 import com.sunbeam.entities.Villa;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 @Transactional
 @Service
 public interface VillaService {
@@ -26,5 +29,9 @@ public interface VillaService {
 	ApiResponse updateVilla(Long id, AddVillaDto dto);
 
 	List<VillaDto> getAllAvaliableVillas();
+
+	VillaDto getById(@NotNull @Min(1) @Max(100) Long id);
+
+	VillaDto update(Long id, VillaDto updateVilla);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,12 +33,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VillaController {
 
-	private final VillaServiceImpl villaServiceImpl;
+	private final VillaService villaService;
 
-	@GetMapping // GET /admin/villa
+	@GetMapping("/get")
 	public ResponseEntity<?> getAllAvailableVillas() {
 		System.out.println("in get all");
-		List<Villa> villas = villaServiceImpl.getAllVillas();
+		List<Villa> villas = villaService.getAllVillas();
 		if (villas.isEmpty())
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		return ResponseEntity.ok(villas);
@@ -45,31 +46,38 @@ public class VillaController {
 	
 	
 	
-//	@GetMapping("/{villaId}")
-//	//swagger annotation
-//	@Operation(description = "Get restaurant details by id")
-//	public ResponseEntity<?> getRestaurantDetails(
-//			@PathVariable @NotNull @Min(1) @Max(100)  Long villaId)
-//	{
-//		System.out.println("in get "+villaId);
-//
-//			return ResponseEntity.ok(
-//						villaServiceImpl.getVillaDetails(villaId));
-//
-//	}
-
+	//get villa by id
+	@GetMapping("/villas/{id}")
+	
+   
+   public ResponseEntity<VillaDto> getVillaById(
+	@PathVariable @NotNull @Min(1) @Max(100)  Long id)
+	{
+		VillaDto villa = villaService.getById(id);
+		return ResponseEntity.ok(villa);
+	}
+ 
+	//update villa by id
+	@PutMapping("/villas/{id}")
+	public ResponseEntity<VillaDto> updateVilla(@PathVariable Long id, @RequestBody VillaDto updateVilla)
+	{
+		VillaDto villa = villaService.update(id, updateVilla);
+		return ResponseEntity.ok(villa);
+	}
+	
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> addNewVilla(@RequestBody AddVillaDto newVilla) {
 	    System.out.println("In controller, newVilla.name = " + newVilla.getName());
 	    return ResponseEntity
 	            .status(HttpStatus.CREATED)
-	            .body(villaServiceImpl.addNewVilla(newVilla));
+	            .body(villaService.addNewVilla(newVilla));
 	}
 
 
 	@DeleteMapping("/{villaId}")
 	public ResponseEntity<?> deleteVillaDetails(@PathVariable Long villaId) {
 		System.out.println("In delete " + villaId);
-		return ResponseEntity.ok(villaServiceImpl.deleteDetails(villaId));
+		return ResponseEntity.ok(villaService.deleteDetails(villaId));
 	}
 }
