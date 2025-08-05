@@ -25,8 +25,8 @@ const DoctorForm = ({ setDoctors }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDoctors((prev) => [...prev, formData]); // ✅ Using prop
-    navigate("/doctors"); // ✅ Redirect after submit
+    setDoctors((prev) => [...prev, formData]); 
+    navigate("/doctors"); 
   };
 
   return (

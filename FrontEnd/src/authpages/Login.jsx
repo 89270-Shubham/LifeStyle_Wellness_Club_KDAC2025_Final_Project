@@ -10,10 +10,9 @@ import { loginUser } from '../services/user';
 
 function Login() {
 
-
+  // const { setUser } = useContext(AuthContext)
   const navigate = useNavigate();
 
-  // const {setUser} = useContext(AuthContext);
 
   const [email,setEmail] = useState("")
   const[password,setPassword] = useState("")

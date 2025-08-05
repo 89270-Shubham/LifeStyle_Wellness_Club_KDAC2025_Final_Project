@@ -30,7 +30,7 @@ import Gallery from './adminpages/Gallery';
 import MyState from '../src/admincontext/MyState';
 import Home from './adminpages/Home';
 import AdminRegister from './adminauthpage/AdminRegister';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import DoctorForm from './admincomponent/DoctorForm';
 import DoctorList from './admincomponent/DoctorList';
 import BookingsPage from './adminpages/BookingsPage';
@@ -38,22 +38,25 @@ import UsersPage from './adminpages/UsersPage';
 import MemberList from './admincomponent/MemberList';
 import TransactionsPage from './adminpages/TransactionsPage';
 import AdminLayout from './admincomponent/AdminLayout';
+import { AuthContext } from './context/auth.context';
 
 
 
 function App() {
 
   const [doctors, setDoctors] = useState([]);
+  // const [user, setUser] = useContext(AuthContext)
 
   return (
+    
     <MyState>
     
+          {/* <AuthContext value={{ user, setUser }}> */}
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='contact-us' element={<ContactUs />} />
           <Route path='about-us' element={<AboutUs />} />
-
           <Route path='home' element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path='events' element={<Events />} />
@@ -66,7 +69,7 @@ function App() {
             <Route path='profile' element={<Profile />} />
             <Route path='buymembership' element={<Buymembership />} />
           </Route>
-
+         
           {/* Admin routes */}
       
 
@@ -122,10 +125,11 @@ function App() {
 
              <Route path='villalist' element={<Villalist/>} />
           </Routes>
-
         <ToastContainer />
       
     </MyState>
+  //  </AuthContext>
+   
   );
 }
 

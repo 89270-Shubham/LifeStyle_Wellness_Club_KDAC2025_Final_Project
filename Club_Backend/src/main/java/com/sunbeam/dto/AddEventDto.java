@@ -1,30 +1,28 @@
 package com.sunbeam.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.sunbeam.enums.Status;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-
-
+@ToString
 public class AddEventDto {
 
-	
-
-	
 	private String name;
 
 	private String description;
 
 	private String location;
 
-	private LocalDate start_time;
+	private LocalDateTime start_time;
 	
-	private LocalDate end_time;
+	private LocalDateTime end_time;
 
 	private String organiser_name;
 

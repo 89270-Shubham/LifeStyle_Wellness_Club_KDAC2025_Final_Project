@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { config } from '../../config';
 import axios from 'axios';
+// import { AuthContext } from '../context/auth.context';
 
 const getUserProfile = async () => {
   try {
@@ -22,6 +23,8 @@ const getUserProfile = async () => {
 const updateUserProfile = async (firstName, lastName,phone,dob,gender,occupation,password) => {
   try {
     const id = sessionStorage.getItem('id')
+    // const id = user.userId
+    console.log(id)
     const url = `${config.serverURL}/user/profile/${id}`
     const body = {firstName, lastName,phone,dob,gender,occupation,password }
     const response = await axios.put(url, body)
@@ -34,6 +37,8 @@ const updateUserProfile = async (firstName, lastName,phone,dob,gender,occupation
 };
 
 function Profile() {
+
+  // const {user} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState('');
@@ -54,16 +59,15 @@ function Profile() {
     const result = await getUserProfile();
     console.log(result)
     if (result) {
-      const user = result
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-      setEmail(user.email);
-      setPhone(user.phone);
-      setDob(user.dob);
-      setAddress(user.address);
-      setGender(user.gender);
-      setOccupation(user.occupation);
-      setPassword(user.password);
+      setFirstName(result.firstName);
+      setLastName(result.lastName);
+      setEmail(result.email);
+      setPhone(result.phone);
+      setDob(result.dob);
+      setAddress(result.address);
+      setGender(result.gender);
+      setOccupation(result.occupation);
+      setPassword(result.password);
     } else {
       toast.error('Failed to load user profile');
     }
@@ -111,9 +115,9 @@ function Profile() {
     
     }
 
-    const data = {
-      firstName, lastName, phone, dob, address, gender, occupation,password
-    };
+    // const data = {
+    //   firstName, lastName, phone, dob, address, gender, occupation,password
+    // };
 
     const result = await updateUserProfile(firstName, lastName,phone,dob,gender,occupation,password);
     console.log(result.statusCode);

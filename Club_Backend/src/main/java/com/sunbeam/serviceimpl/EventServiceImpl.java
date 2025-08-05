@@ -9,6 +9,7 @@ import com.sunbeam.dao.EventDao;
 import com.sunbeam.dao.UserDao;
 import com.sunbeam.dto.GetUserEventDto;
 import com.sunbeam.dto.ProfileDto;
+import com.sunbeam.entities.Events;
 import com.sunbeam.entities.User;
 import com.sunbeam.globalexceptionhandler.AuthenticationFailureException;
 import com.sunbeam.globalexceptionhandler.ResourceNotFoundException;
@@ -22,19 +23,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EventServiceImpl implements EventService{
 
-    private final UserDao userDao;
-
-	
-	
-	private final EventDao eventDao;
+    private final EventDao eventDao;
 	
 	private final ModelMapper modelMapper;
 
 
-  
-
-	
-	
 
 	@Override
 	public List<GetUserEventDto> getAllAvailableEvents() {
@@ -43,12 +36,14 @@ public class EventServiceImpl implements EventService{
 	}
 
 
+	@Override
+	public GetUserEventDto getEventById(Long id) {
+		
+		Events entity = eventDao.findById(id).orElseThrow(() ->new ResourceNotFoundException("Event Not Found"));
+		
+		return modelMapper.map(entity, GetUserEventDto.class);
+				
+	}
 
-
-	
-
-
-
-	
 
 }

@@ -46,46 +46,55 @@ export default function AddEvents() {
                 <input type="text" name="event_name" onChange={handleChange} placeholder="Event Name"
                   className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
               </div>
+
               <div>
                 <label className="text-base font-medium text-gray-900">Event Details</label>
                 <input type="text" name="event_details" onChange={handleChange} placeholder="Details"
                   className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
               </div>
+
               <div>
                 <label className="text-base font-medium text-gray-900">Event Date</label>
                 <input type="date" name="date" onChange={handleChange}
                   className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
               </div>
+
               <div>
                 <label className="text-base font-medium text-gray-900">Start Time</label>
                 <input type="time" name="time_start" onChange={handleChange}
                   className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
               </div>
+
               <div>
                 <label className="text-base font-medium text-gray-900">End Time</label>
                 <input type="time" name="time_end" onChange={handleChange}
                   className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
               </div>
+
               <div>
                 <label className="text-base font-medium text-gray-900">Venue</label>
                 <input type="text" name="venue" onChange={handleChange} placeholder="Venue"
                   className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
               </div>
+
               <div>
                 <label className="text-base font-medium text-gray-900">Organizer Name</label>
                 <input type="text" name="organizer" onChange={handleChange} placeholder="Organizer Name"
                   className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
               </div>
+
               <div>
                 <label className="text-base font-medium text-gray-900">Event Picture</label>
                 <input type="file" name="avatar" onChange={handleChange}
                   className="file-input w-full max-w-xs" />
               </div>
+
               <div>
                 <button type="button" onClick={handleAddEvent}
                   className="inline-flex w-full items-center justify-center rounded-md bg-purple-500 px-3.5 py-2.5 font-semibold text-black hover:bg-purple-300">
                   Add Event
                 </button>
+                
               </div>
             </form>
           </div>

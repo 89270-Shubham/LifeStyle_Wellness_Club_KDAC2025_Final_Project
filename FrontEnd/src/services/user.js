@@ -29,7 +29,6 @@ export async function loginUser(email, password) {
         }
     } catch (ex) {
         console.log(`exception: `, ex)
-
     }
 }
 

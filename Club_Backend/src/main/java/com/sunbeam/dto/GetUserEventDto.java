@@ -1,6 +1,7 @@
 package com.sunbeam.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +21,9 @@ public class GetUserEventDto {
 
 	private String location;
 
-	private LocalDate start_time;
+	private LocalDateTime start_time;
 	
-	private LocalDate end_time;
+	private LocalDateTime end_time;
 
 	private String organiser_name;
 

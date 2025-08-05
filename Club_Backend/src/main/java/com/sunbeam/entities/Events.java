@@ -1,6 +1,7 @@
 package com.sunbeam.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +44,6 @@ public class Events extends SupperClass {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "event_id")
 	private Long id;
 	
 	private String name;
@@ -52,9 +52,9 @@ public class Events extends SupperClass {
 
 	private String location;
 
-	private LocalDate start_time;
+	private LocalDateTime start_time;
 	
-	private LocalDate end_time;
+	private LocalDateTime end_time;
 
 	private String organiser_name;
 
@@ -103,6 +103,7 @@ public class Events extends SupperClass {
 	                .map(UserEvent::getUser)
 	                .collect(Collectors.toList());
 	    }
+	    
 	    
 	    // Find specific UserEvent relationship
 	    public Optional<UserEvent> getUserEvent(User user) {
