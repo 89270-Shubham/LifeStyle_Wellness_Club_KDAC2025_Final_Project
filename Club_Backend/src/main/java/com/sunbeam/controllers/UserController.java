@@ -47,7 +47,6 @@ public class UserController {
 		
 	}
 	
-	
 	@GetMapping("/events")
 	public ResponseEntity<?> getAllEvents(){
 		

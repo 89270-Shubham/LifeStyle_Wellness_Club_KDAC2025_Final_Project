@@ -25,19 +25,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "users", schema = "club")
-@ToString(callSuper =true, exclude="villas")
+@ToString(callSuper = true, exclude = "villas")
 
-@EqualsAndHashCode(of="name", callSuper=false)
-public class User extends SupperClass{
+@EqualsAndHashCode(of = "name", callSuper = false)
+public class User extends SupperClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +51,7 @@ public class User extends SupperClass{
 
     @Column(name = "last_name", length = 50)
     private String lastName;
-    
+
     @Column(name = "Dob", length = 50)
     private LocalDate dob;
 
@@ -70,7 +67,6 @@ public class User extends SupperClass{
     @Column(nullable = false, length = 100)
     private String occupation;
 
-
     @Column(name = "profile_picture", length = 255)
     private String profilePicture;
 
@@ -80,35 +76,19 @@ public class User extends SupperClass{
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
+    // @OneToMany(mappedBy="myusers", cascade=CascadeType.ALL, orphanRemoval=true)
+    // private List<Villa> villalist=new ArrayList<>();
 
-//    @OneToMany(mappedBy="myusers", cascade=CascadeType.ALL, orphanRemoval=true)
-//    private List<Villa> villalist=new ArrayList<>();
-    
-    
-//    public void addVillaItem(Villa villa)
-//    {
-//    	this.villalist.add(villa);
-//    	villa.setMyusers(this);
-//    }
-//    
-//    public void removeVillaItem(Villa villa)
-//    {
-//    	this.villalist.remove(villa);
-//    	villa.setMyusers(null);
-//    }
+    // public void addVillaItem(Villa villa)
+    // {
+    // this.villalist.add(villa);
+    // villa.setMyusers(this);
+    // }
+    //
+    // public void removeVillaItem(Villa villa)
+    // {
+    // this.villalist.remove(villa);
+    // villa.setMyusers(null);
+    // }
 
-
-    
-
-
-    
-    
-
-
-
-	
-	
- 
-
-    
 }
