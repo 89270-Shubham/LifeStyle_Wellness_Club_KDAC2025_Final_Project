@@ -1,5 +1,7 @@
 package com.sunbeam.dto;
 
+import com.sunbeam.enums.Status;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +14,8 @@ public class AddVillaDto {
 	private int numberOfBedrooms;
 	private int numberOfBathrooms;
 	private int capacity;
-	private int details;
+	private String details;
+//	private Status status;
 	
 
 }

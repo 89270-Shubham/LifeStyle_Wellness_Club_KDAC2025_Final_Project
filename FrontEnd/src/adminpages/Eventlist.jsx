@@ -1,10 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import myContext from '../admincontext/MyContext';
 import { useNavigate } from 'react-router-dom';
+import { getAllEvents } from '../services/eventservice';
 
 function Eventlist() {
     const navigate = useNavigate();
-  const { mode, events } = useContext(myContext);
+  const { mode } = useContext(myContext);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+
+    loadEvents();
+  }, []);
+
+
+    async function loadEvents(){
+      const data = await getAllEvents();
+      console.log(data);
+      setEvents(data);
+    }
+
 
   const handleEdit = (eventId) => {
     navigate(`/update-event/${eventId}`)

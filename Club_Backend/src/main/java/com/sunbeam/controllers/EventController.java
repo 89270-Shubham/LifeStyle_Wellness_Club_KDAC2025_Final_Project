@@ -30,6 +30,8 @@ public class EventController {
 	 private EventService eventService;
 	 
 	 
+	 
+	 
 	 @PostMapping("/add")
 	 public ResponseEntity<?> addEvent(@RequestBody AddEventDto addeventdto)
 	 {

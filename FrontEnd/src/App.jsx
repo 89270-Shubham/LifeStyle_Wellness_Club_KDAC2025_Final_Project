@@ -119,11 +119,11 @@ function App() {
              <Route path='gallery' element={<Gallery/>} />
               <Route path='transactionpage' element={<TransactionsPage/>} />
              <Route path='updateevent' element={<UpdateEvent/>} />
-              <Route path='updatevilla' element={<UpdateVilla/>} />
+              {/* <Route path='updatevilla' element={<UpdateVilla/>} /> */}
             </Route>
               <Route path='userpage' element={<UsersPage/>} />
 
-             <Route path='villalist' element={<Villalist/>} />
+            
           </Routes>
         <ToastContainer />
       
