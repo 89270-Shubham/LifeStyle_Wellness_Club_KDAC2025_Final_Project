@@ -27,11 +27,11 @@ public interface VillaService {
 	
 	ApiResponse updateVilla(Long id, VillaDto dto);
 
-	List<VillaDto> getAllAvaliableVillas();
-	
 
 	VillaDto getById(@NotNull @Min(1) @Max(100) Long id);
 
 	VillaDto update(Long id, VillaDto updateVilla);
+
+	List<VillaDto> getAllAvaliableVillas();
 
 }

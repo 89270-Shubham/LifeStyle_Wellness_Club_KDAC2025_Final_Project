@@ -33,7 +33,7 @@ public class VillaController {
 	private final VillaService villaService;
 
 	@GetMapping("/villas/get")
-	public ResponseEntity<?> getAllVillas() {
+	public ResponseEntity<?> getAllAvailableVillasEntity() {
 		System.out.println("in get all");
 		List<Villa> villas = villaService.getAllVillas();
 		if (villas.isEmpty())
@@ -70,7 +70,7 @@ public class VillaController {
 	}
 
 
-	@DeleteMapping("/{villaId}")
+	@DeleteMapping("/villa/{id}")
 	public ResponseEntity<?> deleteVillaDetails(@PathVariable Long villaId) {
 		System.out.println("In delete " + villaId);
 		return ResponseEntity.ok(villaService.deleteDetails(villaId));

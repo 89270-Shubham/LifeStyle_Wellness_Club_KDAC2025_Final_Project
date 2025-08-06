@@ -39,6 +39,7 @@ import MemberList from './admincomponent/MemberList';
 import TransactionsPage from './adminpages/TransactionsPage';
 import AdminLayout from './admincomponent/AdminLayout';
 import { AuthContext } from './context/auth.context';
+import MyBookings from './pages/MyBookings';
 
 
 
@@ -64,7 +65,7 @@ function App() {
             <Route path='events/:id' element={<EventDetails />} />
             <Route path='villas' element={<Villas />} />
             <Route path='villadetails/:id' element={<VillaDetails />} />
-            <Route path='manage-members' element={<ManageMembers />} />
+            <Route path='mybookings' element={<MyBookings />} />
             <Route path='health' element={<Health />} />
             <Route path='profile' element={<Profile />} />
             <Route path='buymembership' element={<Buymembership />} />
@@ -81,6 +82,7 @@ function App() {
           
           <Route path='/eventlist' element={<Eventlist />} />
           <Route path='/addvilla' element={<AddVilla />} />
+          <Route path='/addevents' element={<AddEvents />}/>
           <Route path='/villalist' element={<Villalist />} />
           <Route path='/adddoctor' element={<AddDoctor />} />
           <Route path='/about' element={<AdminAboutus />} />

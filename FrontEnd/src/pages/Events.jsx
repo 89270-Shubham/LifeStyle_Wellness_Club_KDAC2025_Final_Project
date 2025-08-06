@@ -40,7 +40,8 @@ const Events = () => {
   const [enrolled, setEnrolled] = useState([]);
   // setWellnessEvents());
 
-  
+ 
+
   const handleAddToWishlist = (eventId) => {
     if (!wishlist.includes(eventId)) {
       setWishlist([...wishlist, eventId]);
@@ -51,9 +52,15 @@ const Events = () => {
   };
 
   const handleEnroll = (eventId) => {
+
     if (!enrolled.includes(eventId)) {
       setEnrolled([...enrolled, eventId]);
+
+      navigate(`/home/user/enroll`, { state: { eventId } });
+
+      
       alert('Successfully enrolled!');
+
     } else {
       alert('Already enrolled!');
     }
@@ -82,7 +89,7 @@ const Events = () => {
                     <button onClick={() => handleDetails(event)} className="btn btn-outline-primary btn-sm me-2">Details</button>
                     <button onClick={() => handleAddToWishlist(event.id)} className="btn btn-outline-warning btn-sm me-2">Wishlist</button>
                     <button onClick={() => handleEnroll(event.id)} className="btn btn-success btn-sm">Enroll</button>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>

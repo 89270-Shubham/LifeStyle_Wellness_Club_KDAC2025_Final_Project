@@ -17,7 +17,7 @@ function Navbar() {
     { label: 'Profile', path: '/home/profile' },
     { label: 'About Us', path: '/about-us' },
     { label: 'Contact Us', path: '/contact-us' },
-    { label: 'Manage Members', path: '/home/manage-members' },
+    { label: 'My Bookings', path: '/home/mybookings' },
     { label: 'Health Status', path: '/home/health' },
   ];
 

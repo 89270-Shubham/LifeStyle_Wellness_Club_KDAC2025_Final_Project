@@ -71,6 +71,7 @@ public class Events extends SupperClass {
 //			cascade = CascadeType.ALL)
 //	List<User> allUsers = new ArrayList<>();
 	
+	
 	 @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
 	    private List<UserEvent> userEvents = new ArrayList<>();
 

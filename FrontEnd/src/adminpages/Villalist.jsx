@@ -28,23 +28,26 @@ function Villalist() {
     // You can add navigation or open a modal here
   };
 
-  const handleDelete = async (villaId) => {
-    if (window.confirm('Are you sure you want to delete this villa?')) {
-      try {
-        await deleteVilla(villaId)
-        alert('villa deleted successfully');
+ const handleDelete = async (villaId) => {
+  if (!window.confirm('Are you sure you want to delete this villa?')) return;
 
-        const updateVillas = await getAllVillas();
-        setVillas(updateVillas)
-      }catch (error)
-      {
-        console.error('Error deleting villa', error)
-      
-      alert(`Delete clicked for villa ID: ${villaId}`);
-      // Call delete API or update context here
-    }
+  try {
+    // await server delete first
+    const result = await deleteVilla(villaId);
+
+    // Option A: refetch from server (safe)
+    const updated = await getAllVillas();
+    setVillas(updated);
+
+    
+    alert('Villa deleted successfully');
+  } catch (error) {
+    console.error('Error deleting villa', error);
+    // show sensible message
+    alert('Failed to delete villa. See console / network tab for details.');
   }
-  }
+};
+
 
   return (
     <div className='container mx-auto px-4 max-w-7xl my-5'>

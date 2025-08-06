@@ -1,9 +1,12 @@
 import axios from 'axios'
-import { config } from '../../config'
+import {config} from '../../config'
+
+ 
 
 //get all villas
-export async function getAllVillas() {
-    try {
+export async function getAllVillas()
+{
+    try{
         const url = `${config.serverURL}/admin/villas/get`
         // const token = sessionStorage.getItem('token')
         const response = await axios.get(url)
@@ -18,11 +21,31 @@ export async function getAllVillas() {
     }
 }
 
-//delete villa
-export const deleteVilla = async () => {
-    const res = await axios.delete(`${BASE_URL}/${id}`);
-    return res.data;
+    //delete villa
+    export async function deleteVilla(id) {
+  try {
+    if (!id) throw new Error('deleteVilla: id is required');
+    const url = `${config.serverURL}/admin/villas/${id}`; // <-- change this to match your backend
+
+    // If your backend expects a token:
+    const token = sessionStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+    const res = await axios.delete(url, { headers });
+
+    // Some APIs return 204 No Content; some return 200 with a body
+    if (res.status === 200 || res.status === 204) {
+      return { success: true, data: res.data };
+    }
+    return { success: false, status: res.status, data: res.data };
+  } catch (ex) {
+    console.error('deleteVilla exception:', ex);
+    // propagate so caller can show error UI
+    throw ex;
+  }
 }
+
+
 
 //get villa details by id
 export async function getVillaDetails(id) {

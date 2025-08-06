@@ -75,3 +75,19 @@ export async function registerUser(
         console.log(`exception: `, ex)
     }
 }
+
+
+// enroll event api
+
+export const insertEnrollDetails = async (formData) =>{
+
+  const url = `${config.serverURL}/home/user/enroll`
+  const user_Id = sessionStorage.getItem(formData)
+
+  const resp = axios.post(url,formData);
+  if(resp.status==200){
+    toast.success("Data added")
+  }else{
+    toast.error("Data not added")
+  }
+}
