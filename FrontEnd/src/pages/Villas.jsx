@@ -78,6 +78,8 @@ const villas = async () => {
     if (!booked.includes(villaId)) {
       setBooked([...booked, villaId]);
       alert('Villa booked successfully!');
+      
+
     } else {
       alert('Already booked!');
     }
@@ -120,12 +122,12 @@ const villas = async () => {
                   </button>
                     </div>
                   <div className="mt-2 d-flex flex-column"> 
-                  <button
+                  {/* <button
                     onClick={() => handleBooking(villa.id)}
                     className="btn btn-success btn-sm"
                   >
                     Book Villa
-                  </button>
+                  </button> */}
                   </div>
                 </div>
               </div>

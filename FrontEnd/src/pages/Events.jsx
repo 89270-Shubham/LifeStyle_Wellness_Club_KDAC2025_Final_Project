@@ -42,24 +42,21 @@ const Events = () => {
 
  
 
-  const handleAddToWishlist = (eventId) => {
-    if (!wishlist.includes(eventId)) {
-      setWishlist([...wishlist, eventId]);
+  const handleAddToWishlist = (event) => {
+    if (!wishlist.includes(event)) {
+      setWishlist([...wishlist, event]);
       alert('Added to wishlist!');
     } else {
       alert('Already in wishlist!');
     }
   };
 
-  const handleEnroll = (eventId) => {
+  const handleEnroll = (event) => {
 
-    if (!enrolled.includes(eventId)) {
-      setEnrolled([...enrolled, eventId]);
+    if (!enrolled.includes(event)) {
+      setEnrolled([...enrolled, event]);
 
-      navigate(`/home/user/enroll`, { state: { eventId } });
-
-      
-      alert('Successfully enrolled!');
+      navigate(`/home/book`, { state: { event } });
 
     } else {
       alert('Already enrolled!');
@@ -87,8 +84,8 @@ const Events = () => {
                   <p className="card-text text-muted">{event.description}</p>
                   <div className="mt-auto">
                     <button onClick={() => handleDetails(event)} className="btn btn-outline-primary btn-sm me-2">Details</button>
-                    <button onClick={() => handleAddToWishlist(event.id)} className="btn btn-outline-warning btn-sm me-2">Wishlist</button>
-                    <button onClick={() => handleEnroll(event.id)} className="btn btn-success btn-sm">Enroll</button>
+                    <button onClick={() => handleAddToWishlist(event)} className="btn btn-outline-warning btn-sm me-2">Wishlist</button>
+                    <button onClick={() => handleEnroll(event)} className="btn btn-success btn-sm">Enroll</button>
                   </div>
                 </div>
               </div>

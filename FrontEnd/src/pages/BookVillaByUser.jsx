@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { insertEnrollDetails } from '../services/user';
 
-function EnrollUserToEvent() {
+function BookVillaByUser() {
 
     const location = useLocation();
     const navigate = useNavigate();
-    const eventId = location.state?.eventId;
+    const villa = location.state?.villa;
 
 
 
@@ -24,8 +24,8 @@ function EnrollUserToEvent() {
 
 
     const [formData, setFormData] = useState({
-        user_Id: '',
-        villa_Id: '',
+        user_Id: sessionStorage.getItem("id"),
+        villa_Id: villa.id,
         booking_date: '',
         check_in: '',
         check_out: '',
@@ -150,4 +150,4 @@ function EnrollUserToEvent() {
     );
 }
 
-export default EnrollUserToEvent;
+export default BookVillaByUser;

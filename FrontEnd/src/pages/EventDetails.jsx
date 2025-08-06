@@ -1,10 +1,11 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const EventDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const event = location.state?.event;
+
 
   if (!event) {
     return <div className="container mt-5">Event not found</div>;
@@ -43,7 +44,7 @@ const EventDetails = () => {
 
       <div className="d-flex gap-3">
         <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Back</button>
-        <button className="btn btn-success" onClick={() => alert('Booked successfully!')}>Book Now</button>
+        <button className="btn btn-success" onClick={() => navigate("/EnrollEvent")}>Book Now</button>
       </div>
     </div>
   );

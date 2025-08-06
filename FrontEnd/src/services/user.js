@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { config } from './../../config';
+import { toast } from 'react-toastify';
 
 
 export async function loginUser(email, password) {
@@ -81,13 +82,13 @@ export async function registerUser(
 
 export const insertEnrollDetails = async (formData) =>{
 
-  const url = `${config.serverURL}/home/user/enroll`
+  const url = `${config.serverURL}/`
   const user_Id = sessionStorage.getItem(formData)
 
   const resp = axios.post(url,formData);
   if(resp.status==200){
-    toast.success("Data added")
+    console.log("Data added")
   }else{
-    toast.error("Data not added")
+    console.log("Data not added")
   }
 }

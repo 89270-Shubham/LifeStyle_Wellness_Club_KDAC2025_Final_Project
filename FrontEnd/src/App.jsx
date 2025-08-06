@@ -38,8 +38,9 @@ import UsersPage from './adminpages/UsersPage';
 import MemberList from './admincomponent/MemberList';
 import TransactionsPage from './adminpages/TransactionsPage';
 import AdminLayout from './admincomponent/AdminLayout';
-import { AuthContext } from './context/auth.context';
+// import { AuthContext } from './context/auth.context';
 import MyBookings from './pages/MyBookings';
+import BookVillaByUser from './pages/BookVillaByUser';
 
 
 
@@ -69,6 +70,7 @@ function App() {
             <Route path='health' element={<Health />} />
             <Route path='profile' element={<Profile />} />
             <Route path='buymembership' element={<Buymembership />} />
+            <Route path='book' element={<BookVillaByUser />} />
           </Route>
          
           {/* Admin routes */}
