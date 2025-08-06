@@ -41,6 +41,7 @@ import AdminLayout from './admincomponent/AdminLayout';
 // import { AuthContext } from './context/auth.context';
 import MyBookings from './pages/MyBookings';
 import BookVillaByUser from './pages/BookVillaByUser';
+import Ugallery from './pages/Ugallery';
 
 
 
@@ -71,6 +72,7 @@ function App() {
             <Route path='profile' element={<Profile />} />
             <Route path='buymembership' element={<Buymembership />} />
             <Route path='book' element={<BookVillaByUser />} />
+            <Route path='gallery' element={<Ugallery />} />
           </Route>
          
           {/* Admin routes */}
