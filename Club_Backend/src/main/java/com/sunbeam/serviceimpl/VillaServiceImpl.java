@@ -96,14 +96,14 @@ public class VillaServiceImpl implements VillaService {
 	}
 	
 	//find villa by status true
-	@Override
-	public List<VillaDto> getAllAvaliableVillas()
-	{
-		return villadao.findAll()
-				.stream()
-				.map(entity -> modelMapper.map(entity, VillaDto.class))
-				.toList();
-	}
+//	@Override
+//	public List<VillaDto> getAllAvaliableVillas()
+//	{
+//		return villadao.findAll()
+//				.stream()
+//				.map(entity -> modelMapper.map(entity, VillaDto.class))
+//				.toList();
+//	}
 
 	@Override
 	public VillaDto getById(@NotNull @Min(1) @Max(100) Long id) {

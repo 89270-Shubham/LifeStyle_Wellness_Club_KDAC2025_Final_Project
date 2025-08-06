@@ -76,7 +76,7 @@ public class VillaController {
 
 
 	@DeleteMapping("/villa/{id}")
-	public ResponseEntity<?> deleteVillaDetails(@PathVariable Long villaId) {
+	public ResponseEntity<?> deleteVillaDetails(@PathVariable("id") Long villaId) {
 		System.out.println("In delete " + villaId);
 		return ResponseEntity.ok(villaService.deleteDetails(villaId));
 	}
