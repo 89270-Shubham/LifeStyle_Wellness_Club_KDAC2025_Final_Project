@@ -44,19 +44,9 @@ public class Villa extends SupperClass {
     private String image_url;
     
     
-    
-    
-    
-    
-    
-
-   
-
-//    @ManyToOne(fetch=FetchType.LAZY)
-//    @JoinColumn(name="user_id", nullable=false)
-//    private User myusers;
-//    
-    
+  @ManyToOne(fetch=FetchType.LAZY) 
+  @JoinColumn(name="user_id", nullable=false)   
+  private User myusers;    
     
      
 }

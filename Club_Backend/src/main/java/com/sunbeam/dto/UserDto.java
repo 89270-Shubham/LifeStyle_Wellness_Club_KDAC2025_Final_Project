@@ -6,10 +6,12 @@ import com.sunbeam.enums.Gender;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
 @Setter
+@ToString
 public class UserDto {
 
 	private String email;
@@ -29,6 +31,8 @@ public class UserDto {
     private String address;
 
     private String occupation;
+    
+    
 	
 	
 }

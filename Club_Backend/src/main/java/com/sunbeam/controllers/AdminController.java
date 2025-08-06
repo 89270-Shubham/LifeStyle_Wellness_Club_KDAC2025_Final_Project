@@ -14,7 +14,11 @@ import com.sunbeam.dto.UserDto;
 import com.sunbeam.dto.UserLoginDto;
 import com.sunbeam.serviceimpl.AdminServiceImpl;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 @RestController
+@AllArgsConstructor
 @RequestMapping("/admin")
 @CrossOrigin(origins = "http://localhost:4000")
 public class AdminController {
@@ -24,13 +28,7 @@ public class AdminController {
 	
 	private AdminServiceImpl adminserviceImp;
 
-	
-	public AdminController(AdminServiceImpl adminServiceImp)
-	{
-	   	this.adminserviceImp=adminServiceImp;
-	   	
-	}
-	
+
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody AdminLoginDto dto) {

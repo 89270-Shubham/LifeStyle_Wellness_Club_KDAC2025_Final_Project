@@ -2,12 +2,12 @@ package com.sunbeam.services;
 
 import java.util.List;
 
-
-import com.sunbeam.entities.Events;
-
+import com.sunbeam.dto.GetUserEventDto;
+import com.sunbeam.dto.ProfileDto;
 
 public interface EventService {
 	
-	List<Events> getAllAvailableEvents();
+	List<GetUserEventDto> getAllAvailableEvents();
+	
 	
 }
