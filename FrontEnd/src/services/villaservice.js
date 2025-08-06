@@ -2,7 +2,22 @@ import axios from 'axios'
 import {config} from '../../config'
 
  
-
+export async function addVilla(payload)
+{
+    try{
+        const url = `${config.serverURL}/admin/add`;
+        const token = sessionStorage.getItem("token");
+        const headers = {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        };
+        const res = await axios.post(url, payload, { headers });
+        if (res.status === 201 || res.status === 200) return res.data;
+        throw new Error("Unexpected response status: " + res.status);
+    }catch (ex) {
+    console.error("addVilla exception:", ex);
+    throw ex;
+}
+}
 //get all villas
 export async function getAllVillas()
 {

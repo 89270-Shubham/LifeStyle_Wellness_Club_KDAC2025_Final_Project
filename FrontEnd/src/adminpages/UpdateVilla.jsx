@@ -9,15 +9,15 @@ export default function UpdateVilla() {
 
   const villa = location.state?.villa;
 
-  // const [villa, setVilla] = useState({
-  //   name: '',
-  //   location: '',
-  //   rentpernight: '',
-  //   numberofbedrooms: '',
-  //   numberofbathrooms: '',
-  //   capacity: '',
-  //   details: ''
-  // });
+  const [villas, setVilla] = useState({
+    name: '',
+    location: '',
+    rentpernight: '',
+    numberofbedrooms: '',
+    numberofbathrooms: '',
+    capacity: '',
+    details: ''
+  });
 
   const [loading, setLoading] = useState(true);
 
