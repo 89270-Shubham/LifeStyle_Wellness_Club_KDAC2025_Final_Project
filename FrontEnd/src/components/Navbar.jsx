@@ -19,6 +19,7 @@ function Navbar() {
     { label: 'Contact Us', path: '/contact-us' },
     { label: 'Manage Members', path: '/home/manage-members' },
     { label: 'Health Status', path: '/home/health' },
+    {label: 'Our Gallery', path:'/home/gallery'}
   ];
 
   return (
@@ -28,7 +29,7 @@ function Navbar() {
           {/* Brand */}
           <div className='flex-shrink-0'>
             <Link to='/home' className='text-2xl font-bold tracking-wide text-black'>
-              Club
+              Pulse&Peace
             </Link>
           </div>
 
@@ -71,7 +72,7 @@ function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className='text-lg font-bold tracking-wide hover:underline hover:decoration-2 transition duration-200'
+                className='text-sm font-bold tracking-wide hover:underline hover:decoration-2 transition duration-200'
               >
                 {link.label}
               </Link>

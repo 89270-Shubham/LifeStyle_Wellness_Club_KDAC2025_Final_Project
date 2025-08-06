@@ -38,6 +38,7 @@ import UsersPage from './adminpages/UsersPage';
 import MemberList from './admincomponent/MemberList';
 import TransactionsPage from './adminpages/TransactionsPage';
 import AdminLayout from './admincomponent/AdminLayout';
+import Ugallery from './pages/Ugallery';
 
 
 
@@ -65,6 +66,7 @@ function App() {
             <Route path='health' element={<Health />} />
             <Route path='profile' element={<Profile />} />
             <Route path='buymembership' element={<Buymembership />} />
+            <Route path='gallery' element={<Ugallery />} />
           </Route>
 
           {/* Admin routes */}
