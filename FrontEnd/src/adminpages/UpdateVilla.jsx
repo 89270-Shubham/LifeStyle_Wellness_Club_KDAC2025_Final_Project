@@ -49,13 +49,13 @@ export default function UpdateVilla() {
       })
       .catch((err) => {
         console.error("Error updating villa:", err);
-        alert("Update failed.");
+        alert("Update failed."); 
       });
   };
 
   if (loading) return <div className="text-center mt-10 text-xl">Loading villa data...</div>;
 
-  return (
+  return (    
     <div className="container mx-auto max-w-xl mt-10 p-4 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-4">Update Villa (ID: {id})</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -64,11 +64,11 @@ export default function UpdateVilla() {
 
         <input type="text" name="location" value={villa.location} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Location" required />
 
-        <input type="number" name="rentpernight" value={villa.rentpernight} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Rent per Night" required />
+        <input type="number" name="rentpernight" value={villa.rentPerNight} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Rent per Night" required />
 
-        <input type="number" name="numberofbedrooms" value={villa.numberofbedrooms} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Number of Bedrooms" />
+        <input type="number" name="numberofbedrooms" value={villa.numberOfBedrooms} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Number of Bedrooms" />
 
-        <input type="number" name="numberofbathrooms" value={villa.numberofbathrooms} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Number of Bathrooms" />
+        <input type="number" name="numberofbathrooms" value={villa.numberOfBathrooms} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Number of Bathrooms" />
 
         <input type="number" name="capacity" value={villa.capacity} onChange={handleChange} className="w-full border px-3 py-2 rounded" placeholder="Capacity" />
 

@@ -28,7 +28,7 @@ public interface VillaService {
 	
 	ApiResponse updateVilla(Long id, AddVillaDto dto);
 
-	List<VillaDto> getAllAvaliableVillas();
+	
 
 	VillaDto getById(@NotNull @Min(1) @Max(100) Long id);
 

@@ -78,6 +78,7 @@ function App() {
           
           <Route path='/eventlist' element={<Eventlist />} />
           <Route path='/addvilla' element={<AddVilla />} />
+          <Route path='/addevents' element={<AddEvents />}/>
           <Route path='/villalist' element={<Villalist />} />
           <Route path='/adddoctor' element={<AddDoctor />} />
           <Route path='/about' element={<AdminAboutus />} />

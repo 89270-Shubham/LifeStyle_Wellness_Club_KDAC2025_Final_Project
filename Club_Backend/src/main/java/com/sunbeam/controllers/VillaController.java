@@ -28,14 +28,14 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @RestController
-@RequestMapping("/admin/villa")
+@RequestMapping("/admin")
 @CrossOrigin(origins = "http://localhost:4000")  // update to match actual frontend port
 @AllArgsConstructor
 public class VillaController {
 
 	private final VillaService villaService;
 
-	@GetMapping("/get")
+	@GetMapping("/villas/get")
 	public ResponseEntity<?> getAllAvailableVillas() {
 		System.out.println("in get all");
 		List<Villa> villas = villaService.getAllVillas();
@@ -75,7 +75,7 @@ public class VillaController {
 	}
 
 
-	@DeleteMapping("/{villaId}")
+	@DeleteMapping("/villa/{id}")
 	public ResponseEntity<?> deleteVillaDetails(@PathVariable Long villaId) {
 		System.out.println("In delete " + villaId);
 		return ResponseEntity.ok(villaService.deleteDetails(villaId));
