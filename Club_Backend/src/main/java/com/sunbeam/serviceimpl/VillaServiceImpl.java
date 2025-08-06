@@ -1,16 +1,13 @@
 package com.sunbeam.serviceimpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sunbeam.apiresponse.ApiResponse;
-import com.sunbeam.config.WebConfig;
 import com.sunbeam.dao.VillaDao;
-import com.sunbeam.dto.AddVillaDto;
 import com.sunbeam.dto.VillaDto;
 import com.sunbeam.entities.Villa;
 import com.sunbeam.enums.Status;
@@ -46,7 +43,7 @@ public class VillaServiceImpl implements VillaService {
 	}
 	
 	@Override
-	public ApiResponse addNewVilla(AddVillaDto newVillaDto) {
+	public ApiResponse addNewVilla(VillaDto newVillaDto) {
 	    if (villadao.existsByName(newVillaDto.getName()))
 	        throw new InvalidInputException("Duplicate Villa name");
 
@@ -83,7 +80,7 @@ public class VillaServiceImpl implements VillaService {
 	}
 
 	@Override
-	public ApiResponse updateVilla(Long id, AddVillaDto dto) {
+	public ApiResponse updateVilla(Long id, VillaDto dto) {
 		if (villadao.existsById(id))
 			throw new InvalidInputException("Duplicate villa name ");
 		

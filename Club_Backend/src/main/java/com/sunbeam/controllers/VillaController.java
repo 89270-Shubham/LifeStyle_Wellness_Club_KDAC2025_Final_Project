@@ -14,29 +14,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sunbeam.dto.AddVillaDto;
 import com.sunbeam.dto.VillaDto;
 import com.sunbeam.entities.Villa;
-import com.sunbeam.serviceimpl.VillaServiceImpl;
 import com.sunbeam.services.VillaService;
 
-import io.swagger.v3.oas.annotations.Operation;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @RestController
-@RequestMapping("/admin/villa")
+@RequestMapping("/admin")
 @CrossOrigin(origins = "http://localhost:4000")  // update to match actual frontend port
 @AllArgsConstructor
 public class VillaController {
 
 	private final VillaService villaService;
 
-	@GetMapping("/get")
-	public ResponseEntity<?> getAllAvailableVillas() {
+	@GetMapping("/villas/get")
+	public ResponseEntity<?> getAllVillas() {
 		System.out.println("in get all");
 		List<Villa> villas = villaService.getAllVillas();
 		if (villas.isEmpty())
@@ -48,8 +45,6 @@ public class VillaController {
 	
 	//get villa by id
 	@GetMapping("/villas/{id}")
-	
-   
    public ResponseEntity<VillaDto> getVillaById(
 	@PathVariable @NotNull @Min(1) @Max(100)  Long id)
 	{
@@ -67,7 +62,7 @@ public class VillaController {
 	
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> addNewVilla(@RequestBody AddVillaDto newVilla) {
+	public ResponseEntity<?> addNewVilla(@RequestBody VillaDto newVilla) {
 	    System.out.println("In controller, newVilla.name = " + newVilla.getName());
 	    return ResponseEntity
 	            .status(HttpStatus.CREATED)
@@ -80,4 +75,19 @@ public class VillaController {
 		System.out.println("In delete " + villaId);
 		return ResponseEntity.ok(villaService.deleteDetails(villaId));
 	}
+	
+	
+	
+	
+	
+//	API for USER TO SEE ALL AVAILABLE VILLAS
+	@GetMapping("/villas/getavailablevillas")
+	public ResponseEntity<?> getAllAvailableVillas() {
+		System.out.println("in get all");
+		List<Villa> villas = villaService.getAllVillas();
+		if (villas.isEmpty())
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return ResponseEntity.ok(villas);
+	}
+	
 }

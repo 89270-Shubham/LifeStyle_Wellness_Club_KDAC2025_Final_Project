@@ -1,35 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { getAllVillasByStatus } from '../services/villaservice';
+import { toast } from 'react-toastify';
 
 
 
-const villaData = [
-  {
-    id: 1,
-    name: 'Ocean Breeze Villa',
-    location: 'Goa, India',
-    price: '₹12,000/night',
-    description: 'A beautiful sea-facing villa with a private pool and tropical garden.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 2,
-    name: 'Mountain Retreat Villa',
-    location: 'Manali, India',
-    price: '₹8,500/night',
-    description: 'A cozy mountain villa with scenic views, ideal for peaceful vacations.',
-    image: 'https://thenattikabeach.com/wp-content/uploads/2022/06/Deluxe-Twin-Villa-Front-Row-Direct-front2.jpg',
-  },
-  {
-    id: 3,
-    name: 'Lakeside Serenity Villa',
-    location: 'Udaipur, India',
-    price: '₹10,000/night',
-    description: 'Relax by the lake in a luxurious heritage-style villa with modern amenities.',
-    image: 'https://thenattikabeach.com/wp-content/uploads/2022/06/Deluxe-Twin-Villa-Front-Row-Rooms-discover.jpg',
-  },
-];
-
+// const villaData = [
+//   {
+//     id: 1,
+//     name: 'Ocean Breeze Villa',
+//     location: 'Goa, India',
+//     price: '₹12,000/night',
+//     description: 'A beautiful sea-facing villa with a private pool and tropical garden.',
+//     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+//   },
+//   {
+//     id: 2,
+//     name: 'Mountain Retreat Villa',
+//     location: 'Manali, India',
+//     price: '₹8,500/night',
+//     description: 'A cozy mountain villa with scenic views, ideal for peaceful vacations.',
+//     image: 'https://thenattikabeach.com/wp-content/uploads/2022/06/Deluxe-Twin-Villa-Front-Row-Direct-front2.jpg',
+//   },
+//   {
+//     id: 3,
+//     name: 'Lakeside Serenity Villa',
+//     location: 'Udaipur, India',
+//     price: '₹10,000/night',
+//     description: 'Relax by the lake in a luxurious heritage-style villa with modern amenities.',
+//     image: 'https://thenattikabeach.com/wp-content/uploads/2022/06/Deluxe-Twin-Villa-Front-Row-Rooms-discover.jpg',
+//   },
+// ];
 
 
 
@@ -39,7 +40,25 @@ function Villas() {
   const navigate = useNavigate();
 
     const [wishlist, setWishlist] = useState([]);
+    const [villaData, setVillaData] = useState([]);
   const [booked, setBooked] = useState([]);
+
+const villas = async () => {
+   const result = await getAllVillasByStatus()
+      if (result == null) {
+        toast.error("No events Present")
+      } else {
+        console.log(result);
+        setVillaData(result);
+        return result
+      }
+}
+
+
+  useEffect(() => {
+    villas();
+  }, []);
+
 
   const handleDetails = (villa) => {
    navigate(`/home/villadetails/${villa.id}`, {state:{ villa}});

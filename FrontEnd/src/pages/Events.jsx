@@ -22,8 +22,6 @@ const Events = () => {
 
   useEffect(() => {
     loadAllEvents();
-
-
   }, []);
 
   const loadAllEvents = async () => {

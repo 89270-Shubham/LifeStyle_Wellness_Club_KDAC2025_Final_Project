@@ -13,12 +13,12 @@ public class VillaDto {
     private String name;
 
     private String location;
-    private int rentPerNight;
-    private int numberOfBedrooms;
-    private int numberOfBathrooms;
+    private int rent_Per_Night;
+    private int number_Of_Bedrooms;
+    private int number_Of_Bathrooms;
     private int capacity;
     private String details;
-    private Status status;
+  
 	
 
 }

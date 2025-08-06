@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.apiresponse.ApiResponse;
-import com.sunbeam.dto.AddVillaDto;
 import com.sunbeam.dto.VillaDto;
 import com.sunbeam.entities.Villa;
 
@@ -22,13 +21,14 @@ public interface VillaService {
 	
 	ApiResponse deleteDetails(Long id);
 	
-	ApiResponse addNewVilla(AddVillaDto dto);
+	ApiResponse addNewVilla(VillaDto dto);
 	
 	VillaDto getVillaDetails(Long id);
 	
-	ApiResponse updateVilla(Long id, AddVillaDto dto);
+	ApiResponse updateVilla(Long id, VillaDto dto);
 
 	List<VillaDto> getAllAvaliableVillas();
+	
 
 	VillaDto getById(@NotNull @Min(1) @Max(100) Long id);
 

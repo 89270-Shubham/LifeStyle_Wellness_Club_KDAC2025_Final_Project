@@ -112,7 +112,6 @@ function Profile() {
           toast.error(result['error'])
         }
       }
-    
     }
 
     // const data = {
