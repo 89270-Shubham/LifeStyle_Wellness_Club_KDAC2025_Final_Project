@@ -80,15 +80,36 @@ export async function registerUser(
 
 // enroll event api
 
-export const insertEnrollDetails = async (formData) =>{
+// export const insertEnrollDetails = async (formData) =>{
 
-  const url = `${config.serverURL}/`
-  const user_Id = sessionStorage.getItem(formData)
+//   const url = `${config.serverURL}/booking/create`
 
-  const resp = axios.post(url,formData);
-  if(resp.status==200){
-    console.log("Data added")
-  }else{
-    console.log("Data not added")
+//   const resp = await axios.post(url,formData);
+//   console.log(resp)
+//   if(resp.status==200){
+//     console.log("Data added")
+//   }else{
+//     console.log("Data not added")
+//   }
+// }
+
+export const insertEnrollDetails = async (formData) => {
+  const url = `${config.serverURL}/booking/create`;
+
+  try {
+    const resp = await axios.post(url, formData);
+    console.log(resp);
+
+    if (resp.status === 200) {
+      console.log("Data added");
+    } else {
+      console.log("Data not added");
+    }
+
+    return resp; // ✅ return the response
+
+  } catch (error) {
+    console.error("Error during API call:", error);
+    return null; // optional: return null or throw error
   }
-}
+};

@@ -31,6 +31,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -40,12 +41,11 @@ import lombok.ToString;
 @Table
 @EqualsAndHashCode(of = "name", callSuper = false)
 public class Events extends SupperClass {
-	
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 
 	private String description;
@@ -53,7 +53,7 @@ public class Events extends SupperClass {
 	private String location;
 
 	private LocalDateTime start_time;
-	
+
 	private LocalDateTime end_time;
 
 	private String organiser_name;
@@ -61,9 +61,9 @@ public class Events extends SupperClass {
 	private String event_type;
 
 	private Long fee;
-	
+
 	private Status status;
-	
+
 	private String created_by;
 	
 	
@@ -72,46 +72,90 @@ public class Events extends SupperClass {
 //	List<User> allUsers = new ArrayList<>();
 	
 	
-	 @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-	    private List<UserEvent> userEvents = new ArrayList<>();
+	//  @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+	//     private List<UserEvent> userEvents = new ArrayList<>();
 
-	    // Helper methods
-	    public void addUser(User user) {
-	        if (user == null) {
-	            throw new IllegalArgumentException("User cannot be null");
-	        }
+	//     // Helper methods
+	//     public void addUser(User user) {
+	//         if (user == null) {
+	//             throw new IllegalArgumentException("User cannot be null");
+	//         }
 	        
-	        UserEvent userEvent = new UserEvent(user, this);
-	        if (!userEvents.contains(userEvent)) {
-	            userEvents.add(userEvent);
-	            user.getUserEvents().add(userEvent);
-	        }
-	    }
+	//         UserEvent userEvent = new UserEvent(user, this);
+	//         if (!userEvents.contains(userEvent)) {
+	//             userEvents.add(userEvent);
+	//             user.getUserEvents().add(userEvent);
+	//         }
+	//     }
 
-	    public void removeUser(User user) {
-	        if (user == null) {
-	            throw new IllegalArgumentException("User cannot be null");
-	        }
+	//     public void removeUser(User user) {
+	//         if (user == null) {
+	//             throw new IllegalArgumentException("User cannot be null");
+	//         }
 	        
-	        UserEvent userEvent = new UserEvent(user, this);
-	        user.getUserEvents().remove(userEvent);
-	        userEvents.remove(userEvent);
-	    }
+	//         UserEvent userEvent = new UserEvent(user, this);
+	//         user.getUserEvents().remove(userEvent);
+	//         userEvents.remove(userEvent);
+	//     }
 	    
-	    // Get users through the join entity
-	    public List<User> getUsers() {
-	        return userEvents.stream()
-	                .map(UserEvent::getUser)
-	                .collect(Collectors.toList());
-	    }
+	//     // Get users through the join entity
+	//     public List<User> getUsers() {
+	//         return userEvents.stream()
+	//                 .map(UserEvent::getUser)
+	//                 .collect(Collectors.toList());
+	//     }
 	    
 	    
-	    // Find specific UserEvent relationship
-	    public Optional<UserEvent> getUserEvent(User user) {
-	        return userEvents.stream()
-	                .filter(ue -> ue.getUser().equals(user))
-	                .findFirst();
-	    }
+	//     // Find specific UserEvent relationship
+	//     public Optional<UserEvent> getUserEvent(User user) {
+	//         return userEvents.stream()
+	//                 .filter(ue -> ue.getUser().equals(user))
+	//                 .findFirst();
+	//     }
 
+
+	// @ManyToMany(mappedBy = "myEvents",
+	// cascade = CascadeType.ALL)
+	// List<User> allUsers = new ArrayList<>();
+
+	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserEvent> userEvents = new ArrayList<>();
+
+	// Helper methods
+	public void addUser(User user) {
+		if (user == null) {
+			throw new IllegalArgumentException("User cannot be null");
+		}
+
+		// UserEvent userEvent = new UserEvent(user, this);
+		// if (!userEvents.contains(userEvent)) {
+		// userEvents.add(userEvent);
+		// user.getUserEvents().add(userEvent);
+		// }
+		// }
+
+		// public void removeUser(User user) {
+		// if (user == null) {
+		// throw new IllegalArgumentException("User cannot be null");
+		// }
+
+		// UserEvent userEvent = new UserEvent(user, this);
+		// user.getUserEvents().remove(userEvent);
+		// userEvents.remove(userEvent);
+	}
+
+	// Get users through the join entity
+	public List<User> getUsers() {
+		return userEvents.stream()
+				.map(UserEvent::getUser)
+				.collect(Collectors.toList());
+	}
+
+	// Find specific UserEvent relationship
+	public Optional<UserEvent> getUserEvent(User user) {
+		return userEvents.stream()
+				.filter(ue -> ue.getUser().equals(user))
+				.findFirst();
+	}
 
 }

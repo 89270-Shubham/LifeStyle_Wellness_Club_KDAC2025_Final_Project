@@ -1,5 +1,6 @@
 package com.sunbeam.services;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -12,8 +13,9 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-@Transactional
+
 @Service
+
 public interface VillaService {
 	//list all available villas
 	

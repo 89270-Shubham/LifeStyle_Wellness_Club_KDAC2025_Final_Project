@@ -14,6 +14,7 @@ import lombok.ToString;
 @ToString
 public class AddEventDto {
 
+	
 	private String name;
 
 	private String description;

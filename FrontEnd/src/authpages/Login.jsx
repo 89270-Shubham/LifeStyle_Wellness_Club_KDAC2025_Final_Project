@@ -8,11 +8,8 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // hold field-level errors
   const [errors, setErrors] = useState({});
 
-  // validators
   const isValidEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
   const validate = () => {
@@ -28,9 +25,7 @@ function Login() {
   };
 
   const onLogin = async () => {
-    // run client-side validation first
     if (!validate()) {
-      // show toast for the first validation error for quick feedback
       const firstKey = Object.keys(errors)[0];
       if (firstKey) toast.warn(errors[firstKey]);
       return;
@@ -44,26 +39,22 @@ function Login() {
         return;
       }
 
-      // adapt to your loginUser response shape
       if (String(result.status) === '200' || result.status === 200) {
-        const { firstName, lastName, userId } = result.data || result['data'] || {};
+        const { firstName, lastName, userId } = result.data || {};
 
-        // persist user info
-        if (firstName) sessionStorage.setItem('firstName', firstName);
-        if (lastName) sessionStorage.setItem('lastName', lastName);
-        if (userId) sessionStorage.setItem('id', userId);
+        sessionStorage.setItem('firstName', firstName);
+        sessionStorage.setItem('lastName', lastName);
+        sessionStorage.setItem('id', userId);
 
         toast.success('Welcome back!');
         navigate('/home');
       } else {
-        // server returned non-200 (e.g. 401)
         toast.error('Invalid email or password');
       }
     } catch (err) {
       console.error('Login error:', err);
-      if (err?.response?.data) {
-        // server message
-        toast.error(err.response.data.message || JSON.stringify(err.response.data));
+      if (err?.response?.data?.message) {
+        toast.error(err.response.data.message);
       } else {
         toast.error('Login failed. Please try again.');
       }
@@ -77,7 +68,6 @@ function Login() {
         <h5 className="text-center mb-4 text-muted">Login to your account</h5>
 
         <div className="form">
-          {/* Email Field */}
           <div className="mb-3">
             <label className="form-label fw-bold">Email</label>
             <input
@@ -90,7 +80,6 @@ function Login() {
             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
           </div>
 
-          {/* Password Field */}
           <div className="mb-4">
             <label className="form-label fw-bold">Password</label>
             <input
@@ -103,14 +92,12 @@ function Login() {
             {errors.password && <div className="invalid-feedback">{errors.password}</div>}
           </div>
 
-          {/* Login Button */}
           <div className="d-grid mb-3">
             <button onClick={onLogin} className="btn btn-success btn-lg fw-semibold">
               Login
             </button>
           </div>
 
-          {/* Link to Register */}
           <div className="text-center mt-2">
             <span className="text-muted">Don't have an account?</span>{' '}
             <Link to="/register" className="fw-bold text-decoration-none">

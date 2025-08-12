@@ -23,27 +23,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EventServiceImpl implements EventService{
 
-    private final EventDao eventDao;
+ 
+
+
+  
+
 	
-	private final ModelMapper modelMapper;
+	
 
-
-
-	@Override
-	public List<GetUserEventDto> getAllAvailableEvents() {
-		
-		return eventDao.findAll().stream().map(entity->modelMapper.map(entity,GetUserEventDto.class)).toList();
-	}
-
-
-	@Override
-	public GetUserEventDto getEventById(Long id) {
-		
-		Events entity = eventDao.findById(id).orElseThrow(() ->new ResourceNotFoundException("Event Not Found"));
-		
-		return modelMapper.map(entity, GetUserEventDto.class);
-				
-	}
-
+	
 
 }

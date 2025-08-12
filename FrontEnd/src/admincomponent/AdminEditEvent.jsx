@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import myContext from "../admincontext/MyContext";
 import { registerEvent } from "../services/adminevent";
@@ -92,83 +92,6 @@ export default function AddEvents() {
          }
      
 
-
-  // handleChange supports file and non-file inputs
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-
-    if (files && files[0]) {
-      const file = files[0];
-
-      // create a preview URL and store file
-      const preview = URL.createObjectURL(file);
-
-      const updated = {
-        ...form,
-        avatarFile: file,
-        avatarPreview: preview,
-      };
-      setForm(updated);
-
-      // validate avatar immediately
-      const fieldErr = validateField(name, file) || null; // avatar uses validateForm for specifics
-      const nextErrors = validateForm(updated);
-      setErrors(nextErrors);
-      return;
-    }
-
-    const updated = { ...form, [name]: value };
-    setForm(updated);
-
-    // validate field and cross-fields
-    const nextErrors = validateForm(updated);
-    setErrors(nextErrors);
-  };
-
-  // disable submit if there are errors or required fields missing
-  const canSubmit = () => {
-    const nextErrors = validateForm(form);
-    return Object.keys(nextErrors).length === 0;
-  };
-
-  const handleAddEvent = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const nextErrors = validateForm(form);
-    setErrors(nextErrors);
-
-    if (Object.keys(nextErrors).length > 0) {
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Build newEvent — store preview URL so listing can display image
-    const newEvent = {
-      event_name: form.event_name.trim(),
-      event_details: form.event_details.trim(),
-      date: form.date,
-      time_start: form.time_start,
-      time_end: form.time_end,
-      venue: form.venue.trim(),
-      organizer: form.organizer.trim(),
-      avatar: form.avatarPreview || null,
-      // if you plan to upload file to server, use form.avatarFile
-      id: Date.now(),
-    };
-
-    setEvents([...events, newEvent]);
-    setIsSubmitting(false);
-    navigate("/eventlist");
-  };
-
-  // cleanup preview URL when component unmounts or file changes
-  useEffect(() => {
-    return () => {
-      if (form.avatarPreview) URL.revokeObjectURL(form.avatarPreview);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

@@ -76,11 +76,6 @@ function App() {
           </Route>
          
           {/* Admin routes */}
-      
-
-
-
-
 
            <Route path='/login' element={<AdminLogin />} />
           

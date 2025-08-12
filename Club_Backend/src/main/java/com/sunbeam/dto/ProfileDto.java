@@ -13,7 +13,7 @@ import lombok.ToString;
 public class ProfileDto {
 	
 
-	  private Integer userId;
+	  private Long userId;
 
 	    private String email;
 

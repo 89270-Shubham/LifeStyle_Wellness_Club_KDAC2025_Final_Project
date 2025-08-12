@@ -37,9 +37,7 @@ public class VillaServiceImpl implements VillaService {
 	@Override
 	public List<Villa> getAllVillas()
 	{
-		return villadao.findAll()
-				.stream()
-				.toList();
+		return villadao.findAll();
 	}
 	
 	@Override

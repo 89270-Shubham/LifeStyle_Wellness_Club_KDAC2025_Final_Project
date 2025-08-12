@@ -78,8 +78,5 @@ public class UserServiceImpl implements UserService {
 		modelMapper.map(dto, entity);
 		return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(dto);
 	}
-	
-	
-	
 
 }

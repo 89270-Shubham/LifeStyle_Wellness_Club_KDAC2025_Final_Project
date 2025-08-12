@@ -12,7 +12,7 @@ import lombok.Setter;
 public class AdminRegisterDto {
 
 	
-     private Long UserId;
+     
 	 
 	 private  String admin_name;
 	 

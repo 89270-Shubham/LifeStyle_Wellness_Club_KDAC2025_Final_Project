@@ -22,6 +22,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,14 +36,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@ToString(exclude = "myEvents")
+//@ToString(exclude = "myEvents")
 @Table(name = "users", schema = "club")
-public class User extends SupperClass{
+@ToString(callSuper = true, exclude = "villas")
+
+@EqualsAndHashCode(of = "name", callSuper = false)
+public class User extends SupperClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     @Column(nullable = false, length = 100)
     private String email;
@@ -55,7 +59,7 @@ public class User extends SupperClass{
 
     @Column(name = "last_name", length = 50)
     private String lastName;
-    
+
     @Column(name = "Dob", length = 50)
     private LocalDate dob;
 
@@ -70,7 +74,6 @@ public class User extends SupperClass{
 
     @Column(nullable = false, length = 100)
     private String occupation;
-
 
     @Column(name = "profile_picture", length = 255)
     private String profilePicture;
@@ -122,16 +125,19 @@ public class User extends SupperClass{
                 .findFirst();
     }
 
+     @OneToMany(mappedBy="myusers", cascade=CascadeType.ALL, orphanRemoval=true)
+     private List<Villa> villalist=new ArrayList<>();
 
-
+     public void addVillaItem(Villa villa)
+     {
+     this.villalist.add(villa);
+     villa.setMyusers(this);
+     }
     
-    
+     public void removeVillaItem(Villa villa)
+     {
+     this.villalist.remove(villa);
+     villa.setMyusers(null);
+     }
 
-
-
-	
-	
- 
-
-    
 }

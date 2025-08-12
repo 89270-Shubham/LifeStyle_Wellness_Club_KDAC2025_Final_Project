@@ -30,7 +30,7 @@ export async function getEventDetails(id)
         //get all events 
         export async function getAllEvents() {
             try{
-                const url = `${config.serverURL}/event`
+                const url = `${config.serverURL}/event/all`
                
                 const response = await axios.get(url)
                 if(response.status === 200)

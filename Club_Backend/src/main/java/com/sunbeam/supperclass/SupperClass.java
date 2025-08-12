@@ -29,6 +29,8 @@ public abstract class SupperClass {
 	    private LocalDateTime deletedAt;
 
 	    private LocalDateTime lastLogin;
+	    
+	    private boolean isDeleted;
 	
 }
 

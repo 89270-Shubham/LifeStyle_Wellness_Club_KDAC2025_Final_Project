@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sunbeam.dto.GetUserEventDto;
 import com.sunbeam.dto.ProfileDto;
 import com.sunbeam.dto.UserDto;
 import com.sunbeam.dto.UserLoginDto;
+import com.sunbeam.serviceimpl.AddEventServiceImp;
+import com.sunbeam.serviceimpl.EventServiceImpl;
+import com.sunbeam.services.EventService;
 import com.sunbeam.services.UserService;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +33,9 @@ public class UserController {
 	
 	
 	private UserService userServiceImpl;
+	private EventServiceImpl eventService;
+	private AddEventServiceImp addeventserviceImp;
+
 	
 	
 	
@@ -47,22 +54,41 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/events")
+	public ResponseEntity<?> getAllEvents(){
+		
+		List<GetUserEventDto> list = addeventserviceImp.getAllAvailableEvents();
+		
+		if(list.isEmpty())
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		
+		return ResponseEntity.ok(list);
+	}
 	
 	@GetMapping("/profile/{id}")
 	public ResponseEntity<?> getMyProfile(@PathVariable Long id){
+		
+		
 		ProfileDto profile = userServiceImpl.getMyProfile(id);
+		
+		
 		return ResponseEntity.ok(profile);
+
 	}
-	
 	
 	@PutMapping("/profile/{id}")
 	public ResponseEntity<?> updateDetails(@PathVariable 
 			Long id, @RequestBody ProfileDto dto) {
-			System.out.println("in update "+id+" dto");
+		System.out.println("in update "+id+" dto");
 
 			return ResponseEntity.ok(
 					userServiceImpl.updateProfile(id, dto));
+
+		
 	}
+
+
+	
 
 
 	

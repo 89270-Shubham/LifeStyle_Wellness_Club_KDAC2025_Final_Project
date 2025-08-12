@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { insertEnrollDetails } from '../services/user';
 
@@ -13,8 +13,8 @@ function BookVillaByUser() {
     const enrollUserToEvent = async (formData) => {
 
         const response = await insertEnrollDetails(formData);
-
-        if (response != null) {
+         console.log(response)
+        if (response.data != null) {
             return response;
         } else {
 
