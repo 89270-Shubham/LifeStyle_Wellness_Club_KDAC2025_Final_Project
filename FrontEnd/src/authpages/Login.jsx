@@ -1,102 +1,103 @@
-import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-// import { toast } from 'react-toastify';
-import { AuthContext } from '../context/auth.context';
-// import { loginUser } from '../services/user';
-
-
-
-
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { loginUser } from '../services/user';
 
 function Login() {
-
-
   const navigate = useNavigate();
 
-  // const {setUser} = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
-  const [email,setEmail] = useState("")
-  const[password,setPassword] = useState("")
+  const isValidEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
-  const onLogin =  () => {
-    if(email.length==0){
-      toast.warn("Please enter email")
-    }else if(password.length==0){
-      toast.warn("Please enter password")
-    }else {
-      // const result= await loginUser(email,password)
-      // if (!result) {
-      //   toast.error('Error while login')
-      // } else {
-      // if(!result['status']=='success'){
-      //   const { firstName, lastName, token } = result['data']
+  const validate = () => {
+    const err = {};
+    if (!email.trim()) err.email = 'Please enter email';
+    else if (!isValidEmail(email.trim())) err.email = 'Enter a valid email';
 
-      //     // persist the information in session storage
+    if (!password) err.password = 'Please enter password';
+    else if (password.length < 6) err.password = 'Password must be at least 6 characters';
 
-      //     sessionStorage.setItem('firstName', firstName)
-      //     sessionStorage.setItem('lastName', lastName)
-      //     sessionStorage.setItem('token', token)
+    setErrors(err);
+    return Object.keys(err).length === 0;
+  };
 
-      //     // set the user details in the AuthContext
-      //     setUser({
-      //       firstName,
-      //       lastName,
-      //     })
-
-      //     console.log('result: ', result)
-      //     toast.success('Welcome to application')
-
-      //     // navigate to home screen
-      //     navigate('/home')
-      //   } else {
-      //     toast.error('Invalid email or password')
-      //   }
-
-      // }
-      toast.success("Logged In Successfully")
-      navigate('/home')
+  const onLogin = async () => {
+    if (!validate()) {
+      const firstKey = Object.keys(errors)[0];
+      if (firstKey) toast.warn(errors[firstKey]);
+      return;
     }
-  
-  }
+
+    try {
+      const result = await loginUser(email.trim(), password);
+
+      if (!result) {
+        toast.error('Error while logging in');
+        return;
+      }
+
+      if (String(result.status) === '200' || result.status === 200) {
+        const { firstName, lastName, userId } = result.data || {};
+
+        sessionStorage.setItem('firstName', firstName);
+        sessionStorage.setItem('lastName', lastName);
+        sessionStorage.setItem('id', userId);
+
+        toast.success('Welcome back!');
+        navigate('/home');
+      } else {
+        toast.error('Invalid email or password');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      if (err?.response?.data?.message) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error('Login failed. Please try again.');
+      }
+    }
+  };
 
   return (
-     
-     <div className="container d-flex justify-content-center align-items-center min-vh-100">
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
       <div className="card shadow p-4 rounded-4" style={{ width: '100%', maxWidth: '450px' }}>
         <h2 className="text-center mb-4 text-success">Welcome Back</h2>
         <h5 className="text-center mb-4 text-muted">Login to your account</h5>
 
         <div className="form">
-          {/* Email Field */}
           <div className="mb-3">
             <label className="form-label fw-bold">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
+              value={email}
               type="email"
-              className="form-control"
+              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
               placeholder="username@test.com"
             />
+            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
           </div>
 
-          {/* Password Field */}
           <div className="mb-4">
             <label className="form-label fw-bold">Password</label>
             <input
               onChange={(e) => setPassword(e.target.value)}
+              value={password}
               type="password"
-              className="form-control"
+              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
               placeholder="••••••••"
             />
+            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
           </div>
 
-          {/* Login Button */}
           <div className="d-grid mb-3">
             <button onClick={onLogin} className="btn btn-success btn-lg fw-semibold">
               Login
             </button>
           </div>
 
-          {/* Link to Register */}
           <div className="text-center mt-2">
             <span className="text-muted">Don't have an account?</span>{' '}
             <Link to="/register" className="fw-bold text-decoration-none">
@@ -106,7 +107,7 @@ function Login() {
         </div>
       </div>
     </div>
-    )
+  );
 }
 
-export default Login
+export default Login;

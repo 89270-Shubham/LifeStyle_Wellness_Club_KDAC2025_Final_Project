@@ -1,100 +1,196 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import myContext from "../admincontext/MyContext";
-
+import { addVilla, getAllVillas } from "../services/villaservice";
 
 function AddVilla() {
   const { villas, setVillas } = useContext(myContext);
   const navigate = useNavigate();
 
-  // state for form fields
+  // Use keys that match AddVillaDto/backend
   const [form, setForm] = useState({
-    villa_name: '',
-    location: '',
-    rent: '',
-    bedroom: '',
-    bathroom: '',
-    capacity: '',
-    details: '',
+    name: "",
+    location: "",
+    rentPerNight:0,
+    numberOfBedrooms:0,
+    numberOfBathrooms:0,
+    capacity:0,
+    details: "",
     avatar: null
   });
 
-  // handle input change
+  const [errors, setErrors] = useState({});
+  const [preview, setPreview] = useState(null);
+
+  // Controlled inputs
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setForm({
-      ...form,
-      [name]: files ? URL.createObjectURL(files[0]) : value
-    });
+    if (files && files.length > 0) {
+      setForm((p) => ({ ...p, [name]: files[0] }));
+      setPreview(URL.createObjectURL(files[0]));
+    } else {
+      setForm((p) => ({ ...p, [name]: value }));
+    }
   };
 
-  // handle add villa
-  const handleAddVilla = () => {
-    const newVilla = {
-      ...form,
-      id: Date.now() // unique id
+  const validate = () => {
+    const temp = {};
+    if (!form.name || !form.name.trim()) temp.name = "Villa name is required";
+    if (!form.location || !form.location.trim()) temp.location = "Location is required";
+    if (!form.rentPerNight || Number(form.rentPerNight) <= 0) temp.rentPerNight = "Enter a valid rent";
+    if (!form.numberOfBedrooms || Number(form.numberOfBedrooms) <= 0) temp.numberOfBedrooms = "Enter bedrooms count";
+    if (!form.numberOfBathrooms || Number(form.numberOfBathrooms) <= 0) temp.numberOfBathrooms = "Enter bathrooms count";
+    if (!form.capacity || Number(form.capacity) <= 0) temp.capacity = "Enter capacity";
+    if (!form.details || !form.details.trim()) temp.details = "Details are required";
+    // avatar optional — remove comment if you require it:
+    // if (!form.avatar) temp.avatar = "Please upload a villa picture";
+    setErrors(temp);
+    return Object.keys(temp).length === 0;
+  };
+
+  // Make it async and await API calls
+  const handleAddVilla = async () => {
+    if (!validate()) return;
+
+    const payload = {
+      name: form.name,
+      location: form.location,
+      rentPerNight: Number(form.rentPerNight),
+      numberOfBedrooms: Number(form.numberOfBedrooms),
+      numberOfBathrooms: Number(form.numberOfBathrooms),
+      capacity: Number(form.capacity),
+      details: form.details
     };
-    setVillas([...villas, newVilla]);
-    navigate('/villalist');
+
+    try {
+      // If avatar exists, addVillaSmart will send multipart, otherwise JSON
+      await addVilla(payload, form.avatar);
+
+      // refetch list and update context
+      const updated = await getAllVillas();
+      setVillas(updated);
+
+      navigate("/villalist");
+    } catch (err) {
+      console.error("Error adding villa:", err);
+      if (err.response) {
+        alert(`Add failed: ${err.response.status} - ${JSON.stringify(err.response.data)}`);
+      } else {
+        alert("Failed to add villa. See console.");
+      }
+    }
   };
 
   return (
-    <section className="rounded-md p-2 bg-white">
-      <div className="flex items-center justify-center my-3">
-        <div className="xl:mx-auto shadow-md p-4 xl:w-full xl:max-w-sm 2xl:max-w-md">
-          <h2 className="text-2xl font-bold leading-tight mb-2">ADD VILLAS</h2>
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-yellow-50 to-white p-4">
+      <div className="bg-white/90 rounded-lg shadow-lg p-6 w-full max-w-md border border-purple-200">
+        <h2 className="text-3xl font-bold text-center mb-4">ADD VILLAS</h2>
 
-          <form className="mt-5 space-y-4">
-            <div>
-              <label className="text-base font-medium text-gray-900">Villa Name</label>
-              <input type="text" name="villa_name" onChange={handleChange} placeholder="Villa Name"
-                className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
-            </div>
-            {/* Repeat for other fields */}
-            <div>
-              <label className="text-base font-medium text-gray-900">Location</label>
-              <input type="text" name="location" onChange={handleChange} placeholder="Location"
-                className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-base font-medium text-gray-900">Rent per night</label>
-              <input type="number" name="rent" onChange={handleChange} placeholder="Enter rent"
-                className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-base font-medium text-gray-900">Number of Bedrooms</label>
-              <input type="number" name="bedroom" onChange={handleChange} placeholder="Bedrooms"
-                className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-base font-medium text-gray-900">Number of Bathrooms</label>
-              <input type="number" name="bathroom" onChange={handleChange} placeholder="Bathrooms"
-                className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-base font-medium text-gray-900">Capacity / Max guests</label>
-              <input type="number" name="capacity" onChange={handleChange} placeholder="Guests"
-                className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-base font-medium text-gray-900">Details</label>
-              <input type="text" name="details" onChange={handleChange} placeholder="Details"
-                className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm" />
-            </div>
-            <div>
-              <label className="text-base font-medium text-gray-900">Villa Picture</label>
-              <input type="file" name="avatar" onChange={handleChange}
-                className="file-input w-full max-w-xs" />
-            </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAddVilla();
+          }}
+          className="space-y-4"
+        >
+          <div>
+            <label className="block text-sm font-medium">Villa Name</label>
+            <input
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className="border px-3 py-2 w-full rounded"
+              placeholder="Villa name"
+            />
+            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+          </div>
 
-            <div>
-              <button type="button" onClick={handleAddVilla}
-                className="inline-flex w-full items-center justify-center rounded-md bg-amber-500 px-3.5 py-2.5 font-semibold text-black hover:bg-amber-300">
-                Add Villa
-              </button>
-            </div>
-          </form>
-        </div>
+          <div>
+            <label className="block text-sm font-medium">Location</label>
+            <input
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              className="border px-3 py-2 w-full rounded"
+              placeholder="Location"
+            />
+            {errors.location && <p className="text-red-500 text-xs">{errors.location}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Rent per night</label>
+            <input
+              name="rentPerNight"
+              type="number"
+              value={form.rentPerNight}
+              onChange={handleChange}
+              className="border px-3 py-2 w-full rounded"
+              placeholder="Rent"
+            />
+            {errors.rentPerNight && <p className="text-red-500 text-xs">{errors.rentPerNight}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Bedrooms</label>
+            <input
+              name="numberOfBedrooms"
+              type="number"
+              value={form.numberOfBedrooms}
+              onChange={handleChange}
+              className="border px-3 py-2 w-full rounded"
+              placeholder="Bedrooms"
+            />
+            {errors.numberOfBedrooms && <p className="text-red-500 text-xs">{errors.numberOfBedrooms}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Bathrooms</label>
+            <input
+              name="numberOfBathrooms"
+              type="number"
+              value={form.numberOfBathrooms}
+              onChange={handleChange}
+              className="border px-3 py-2 w-full rounded"
+              placeholder="Bathrooms"
+            />
+            {errors.numberOfBathrooms && <p className="text-red-500 text-xs">{errors.numberOfBathrooms}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Capacity</label>
+            <input
+              name="capacity"
+              type="number"
+              value={form.capacity}
+              onChange={handleChange}
+              className="border px-3 py-2 w-full rounded"
+              placeholder="Capacity"
+            />
+            {errors.capacity && <p className="text-red-500 text-xs">{errors.capacity}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Details</label>
+            <input
+              name="details"
+              value={form.details}
+              onChange={handleChange}
+              className="border px-3 py-2 w-full rounded"
+              placeholder="Details"
+            />
+            {errors.details && <p className="text-red-500 text-xs">{errors.details}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Image (optional)</label>
+            <input name="avatar" type="file" accept="image/*" onChange={handleChange} />
+            {preview && <img src={preview} alt="preview" className="mt-2 w-full h-40 object-cover rounded" />}
+          </div>
+
+          <button type="submit" className="w-full bg-amber-500 py-2 rounded text-black font-semibold">
+            Add Villa
+          </button>
+        </form>
       </div>
     </section>
   );

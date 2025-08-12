@@ -1,20 +1,31 @@
 package com.sunbeam.serviceimpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.sunbeam.apiresponse.ApiResponse;
 import com.sunbeam.dao.UserDao;
+import com.sunbeam.dto.ProfileDto;
 import com.sunbeam.dto.UserDto;
 import com.sunbeam.dto.UserLoginDto;
 import com.sunbeam.entities.User;
 import com.sunbeam.globalexceptionhandler.AuthenticationFailureException;
+import com.sunbeam.globalexceptionhandler.InvalidInputException;
+import com.sunbeam.globalexceptionhandler.ResourceNotFoundException;
 import com.sunbeam.services.UserService;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 
+@Transactional
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 	
-	@Autowired
+	
 	private UserDao userDao;
+	private final ModelMapper modelMapper;
 
 	@Override
 	public User register(UserDto data) {
@@ -35,12 +46,37 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User userLogin(UserLoginDto dto) {
+	public UserLoginDto userLogin(UserLoginDto dto) {
 		User entity=
 				userDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword())
 				.orElseThrow(() -> new AuthenticationFailureException("Invalid email or password"));
-			
-				return entity;
+				return modelMapper.map(entity, UserLoginDto.class);
+	}
+	
+	
+	@Override
+	public ProfileDto getMyProfile(Long id) {
+		
+		 User profile = userDao.findById(id)
+		            .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+		    
+		 ProfileDto userDto = modelMapper.map(profile, ProfileDto.class);
+		 userDto.setUserId(profile.getUserId());
+		     
+		    return userDto;
+	}
+
+	@Override
+	public ResponseEntity<?> updateProfile(Long id, ProfileDto dto) {
+		
+		if (userDao.existsByEmail(dto.getEmail()))
+			throw new InvalidInputException("Duplicate User found by same !!!!!!!!!!");
+		
+		User entity = userDao.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID!!!!"));
+		
+		modelMapper.map(dto, entity);
+		return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(dto);
 	}
 
 }

@@ -1,10 +1,11 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const EventDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const event = location.state?.event;
+
 
   if (!event) {
     return <div className="container mt-5">Event not found</div>;
@@ -30,18 +31,20 @@ const EventDetails = () => {
       </div>
 
       <div className="mb-3">
-        <h5><strong>Date:</strong> {event.date}</h5>
-        <h5><strong>Location:</strong> {event.location}</h5>
+        <h5>Name: {event.name}</h5>
+        <h6><>Organizer Name:</> {event.organiser_name}</h6>
+        <h6><>Event Type:</> {event.event_type}</h6>
+        <h6><>Location:</> {event.location}</h6>
         <p className="mt-3">{event.description}</p>
-        <p>
-          Join us for this immersive wellness experience, curated with expert guidance and community interaction. 
-          Booking includes all materials, sessions, and refreshments.
-        </p>
+        <h6>Start Date: {event.start_time}</h6>
+        <h6><>End Date:</> {event.end_time}</h6>
+        <h6><>Fees:</> {event.fee}</h6>
+        
       </div>
 
       <div className="d-flex gap-3">
         <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Back</button>
-        <button className="btn btn-success" onClick={() => alert('Booked successfully!')}>Book Now</button>
+        <button className="btn btn-success" onClick={() => navigate("/EnrollEvent")}>Book Now</button>
       </div>
     </div>
   );

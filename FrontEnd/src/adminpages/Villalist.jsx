@@ -1,23 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import myContext from '../admincontext/MyContext';
 import { useNavigate } from 'react-router-dom';
+import { getAllVillas , deleteVilla } from '../services/villaservice';
 
 function Villalist() {
     const navigate = useNavigate();
   const context = useContext(myContext);
-  const { mode, villas } = context; // make sure villas is available in context
+  const { mode } = context; // make sure villas is available in context
 
+  //services
+  const [villas, setVillas]  = useState([])
+  async function fetchData()
+    {
+      const data = await getAllVillas()
+      setVillas(data)
+    }
+
+
+  useEffect(() =>{
+
+    fetchData()
+  }, [])
+ 
+      
   const handleEdit = (villa) => {
-    navigate(`/update-villa/${villa.id}`);
+    navigate(`/update-villa/${villa.id}`, {state:{villa}});
     // You can add navigation or open a modal here
   };
 
-  const handleDelete = (villaId) => {
-    if (window.confirm('Are you sure you want to delete this villa?')) {
-      alert(`Delete clicked for villa ID: ${villaId}`);
-      // Call delete API or update context here
-    }
-  };
+ const handleDelete = async (villaId) => {
+  if (!window.confirm('Are you sure you want to delete this villa?')) return;
+
+  try {
+    // await server delete first
+    const result = await deleteVilla(villaId);
+
+    // Option A: refetch from server (safe)
+    const updated = await getAllVillas();
+    setVillas(updated);
+
+    
+    alert('Villa deleted successfully');
+  } catch (error) {
+    console.error('Error deleting villa', error);
+    // show sensible message
+    alert('Failed to delete villa. See console / network tab for details.');
+  }
+};
+
 
   return (
     <div className='container mx-auto px-4 max-w-7xl my-5'>
@@ -49,9 +79,9 @@ function Villalist() {
                 <td className="px-6 py-4">
                   <img className='w-16 rounded-lg' src={villa.avatar} alt="villa" />
                 </td>
-                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.villa_name}</td>
+                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.name}</td>
                 <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.location}</td>
-                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.rent}</td>
+                <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">{villa.rentPerNight}</td>
                 <td className="px-6 py-4 text-center">
                   <button
                     onClick={() => handleEdit(villa)}

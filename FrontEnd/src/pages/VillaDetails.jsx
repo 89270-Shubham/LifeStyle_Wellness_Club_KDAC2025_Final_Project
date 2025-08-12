@@ -20,6 +20,7 @@ const VillaDetails = () => {
 
   const handleBook = () => {
     alert(`Booking confirmed for: ${villa.name}`);
+     navigate(`/home/book`, { state: { villa } });
   };
 
   return (

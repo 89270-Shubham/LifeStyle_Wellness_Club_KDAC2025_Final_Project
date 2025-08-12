@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { config } from './../../config';
+import { toast } from 'react-toastify';
 
 
 export async function loginUser(email, password) {
@@ -13,21 +14,22 @@ export async function loginUser(email, password) {
             email,
             password,
         }
-
+        
         // call Post API
         const response = await axios.post(url, body)
 
         // check if response is OK
+        console.log(response)
+        console.log(response.status)
         if (response.status == 200) {
             // send the response body
-            return response.data
+            return response
         } else {
             // send null result
             return null
         }
     } catch (ex) {
         console.log(`exception: `, ex)
-        
     }
 }
 
@@ -41,10 +43,10 @@ export async function registerUser(
     address,
     gender,
     occupation,
-    password,
+    password
 ) {
     try {
-        // create the required url
+
         const url = `${config.serverURL}/user/register`
 
         // create the request body
@@ -74,3 +76,40 @@ export async function registerUser(
         console.log(`exception: `, ex)
     }
 }
+
+
+// enroll event api
+
+// export const insertEnrollDetails = async (formData) =>{
+
+//   const url = `${config.serverURL}/booking/create`
+
+//   const resp = await axios.post(url,formData);
+//   console.log(resp)
+//   if(resp.status==200){
+//     console.log("Data added")
+//   }else{
+//     console.log("Data not added")
+//   }
+// }
+
+export const insertEnrollDetails = async (formData) => {
+  const url = `${config.serverURL}/booking/create`;
+
+  try {
+    const resp = await axios.post(url, formData);
+    console.log(resp);
+
+    if (resp.status === 200) {
+      console.log("Data added");
+    } else {
+      console.log("Data not added");
+    }
+
+    return resp; // ✅ return the response
+
+  } catch (error) {
+    console.error("Error during API call:", error);
+    return null; // optional: return null or throw error
+  }
+};
