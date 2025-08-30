@@ -31,7 +31,7 @@ jobs:
           if [ -d "FrontEnd" ]; then
             echo "Generating Frontend dependency graph..."
             cd FrontEnd
-            madge --image deps.png src/ || echo "Madge failed"
+            madge --image deps.png . || echo "Madge failed"
             cd ..
           else
             echo "No FrontEnd directory found, skipping frontend graph."
@@ -54,7 +54,11 @@ jobs:
             cd Club_Backend
             if [ -f "pom.xml" ]; then
               mvn dependency:tree -DoutputType=dot -DoutputFile=deps.dot || echo "Maven failed"
-              dot -Tpng deps.dot -o deps.png || echo "Graphviz failed"
+              if [ -f deps.dot ]; then
+                dot -Tpng deps.dot -o deps.png || echo "Graphviz failed"
+              else
+                echo "deps.dot not created — check Maven plugin version in pom.xml"
+              fi
             else
               echo "No pom.xml found in Club_Backend, skipping backend graph."
             fi
@@ -62,6 +66,14 @@ jobs:
           else
             echo "No Club_Backend directory found, skipping backend graph."
           fi
+
+      # ---------- DEBUG: Show generated files ----------
+      - name: List generated files
+        run: |
+          echo "Frontend folder contents:"
+          ls -R FrontEnd || true
+          echo "Backend folder contents:"
+          ls -R Club_Backend || true
 
       # ---------- Commit graphs back ----------
       - name: Commit and Push Dependency Graphs
