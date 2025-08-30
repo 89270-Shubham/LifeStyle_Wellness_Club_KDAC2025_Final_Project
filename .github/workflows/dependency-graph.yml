@@ -1,0 +1,73 @@
+name: Generate Dependency Graphs
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  dependency-graphs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # ---------- FRONTEND (Node.js) ----------
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Madge
+        run: npm install -g madge
+
+      - name: Generate Frontend Dependency Graph
+        run: |
+          if [ -d "FrontEnd" ]; then
+            echo "Generating Frontend dependency graph..."
+            cd FrontEnd
+            madge --image deps.png src/ || echo "Madge failed"
+            cd ..
+          else
+            echo "No FrontEnd directory found, skipping frontend graph."
+          fi
+
+      # ---------- BACKEND (Java + Maven) ----------
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install Graphviz
+        run: sudo apt-get install -y graphviz
+
+      - name: Generate Backend Dependency Graph
+        run: |
+          if [ -d "Club_Backend" ]; then
+            echo "Generating Backend dependency graph..."
+            cd Club_Backend
+            if [ -f "pom.xml" ]; then
+              mvn dependency:tree -DoutputType=dot -DoutputFile=deps.dot || echo "Maven failed"
+              dot -Tpng deps.dot -o deps.png || echo "Graphviz failed"
+            else
+              echo "No pom.xml found in Club_Backend, skipping backend graph."
+            fi
+            cd ..
+          else
+            echo "No Club_Backend directory found, skipping backend graph."
+          fi
+
+      # ---------- Commit graphs back ----------
+      - name: Commit and Push Dependency Graphs
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add FrontEnd/deps.png Club_Backend/deps.png || echo "No graphs to add"
+          git commit -m "Update dependency graphs [skip ci]" || echo "No changes to commit"
+          git push || echo "No changes to push"
