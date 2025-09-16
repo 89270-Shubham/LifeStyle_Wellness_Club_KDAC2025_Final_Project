@@ -32,7 +32,7 @@ function AdminLogin()
           sessionStorage.setItem('email', email)
 
           toast.success('Welcome to the application')
-          navigate('/homeadmin')
+          navigate('/admin')
         } else {
           toast.error('Invalid email or password')
         }

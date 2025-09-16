@@ -1,5 +1,6 @@
 package com.sunbeam.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sunbeam.dto.GetUserEventDto;
 import com.sunbeam.dto.ProfileDto;
@@ -19,7 +22,6 @@ import com.sunbeam.dto.UserDto;
 import com.sunbeam.dto.UserLoginDto;
 import com.sunbeam.serviceimpl.AddEventServiceImp;
 import com.sunbeam.serviceimpl.EventServiceImpl;
-import com.sunbeam.services.EventService;
 import com.sunbeam.services.UserService;
 
 import lombok.AllArgsConstructor;
@@ -87,7 +89,21 @@ public class UserController {
 		
 	}
 
+	 // Upload image
+    @PostMapping("/{id}/upload-picture")
+    public ResponseEntity<?> uploadProfilePicture(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) throws IOException {
+    	
+    		
+    	return userServiceImpl.updateProfilePicture(id, file);
+    }
 
+    // Get image
+    @GetMapping("/{id}/picture")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long id) {
+       return userServiceImpl.getMyProfilePicture(id);
+    }
 	
 
 

@@ -28,7 +28,7 @@ function Register() {
             if (result==null) {
                 toast.error('Error while registering the user')
             } else {
-                if (result.status === 'success') {
+                if (result.status === 200) {
                     toast.success('Successfully registered!')
                     navigate('/login')
                 } else {

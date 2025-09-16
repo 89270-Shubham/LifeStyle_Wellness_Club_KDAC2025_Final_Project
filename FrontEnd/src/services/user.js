@@ -113,3 +113,5 @@ export const insertEnrollDetails = async (formData) => {
     return null; // optional: return null or throw error
   }
 };
+
+
