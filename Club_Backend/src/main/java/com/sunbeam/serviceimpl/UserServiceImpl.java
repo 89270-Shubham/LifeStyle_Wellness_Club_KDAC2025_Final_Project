@@ -1,9 +1,13 @@
 package com.sunbeam.serviceimpl;
 
+import java.io.IOException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sunbeam.apiresponse.ApiResponse;
 import com.sunbeam.dao.UserDao;
@@ -69,14 +73,41 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<?> updateProfile(Long id, ProfileDto dto) {
 		
-		if (userDao.existsByEmail(dto.getEmail()))
-			throw new InvalidInputException("Duplicate User found by same !!!!!!!!!!");
+//		if (userDao.existsByEmail(dto.getEmail()))
+//			throw new InvalidInputException("Duplicate User found by same !!!!!!!!!!");
 		
 		User entity = userDao.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID!!!!"));
 		
 		modelMapper.map(dto, entity);
 		return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(dto);
+	}
+
+	@Override
+	public ResponseEntity<?> updateProfilePicture(Long id, MultipartFile file) {
+      User user = userDao.findById(id)
+      .orElseThrow(() -> new RuntimeException("User not found"));
+
+      try {
+		user.setProfilePicture(file.getBytes());
+	} catch (IOException e) {
+		
+		e.printStackTrace();
+	} // store as BLOB
+      userDao.save(user);
+      return ResponseEntity.ok("Profile picture uploaded successfully!");
+	}
+
+	@Override
+	public ResponseEntity<byte[]> getMyProfilePicture(Long id) {
+		 User user = userDao.findById(id)
+	                .orElseThrow(() -> new RuntimeException("User not found"));
+
+	        byte[] image = user.getProfilePicture();
+
+	        return ResponseEntity.ok()
+	                .contentType(MediaType.IMAGE_JPEG) // or IMAGE_PNG
+	                .body(image);
 	}
 
 }

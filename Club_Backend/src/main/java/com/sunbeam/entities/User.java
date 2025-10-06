@@ -18,6 +18,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -66,7 +67,7 @@ public class User extends SupperClass {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(length = 15)
+    @Column(name = "phone")
     private String phone;
 
     @Column(columnDefinition = "TEXT")
@@ -75,8 +76,9 @@ public class User extends SupperClass {
     @Column(nullable = false, length = 100)
     private String occupation;
 
-    @Column(name = "profile_picture", length = 255)
-    private String profilePicture;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] profilePicture;
 
     @Column(name = "is_verified", columnDefinition = "TINYINT(1)")
     private Boolean isVerified = false;

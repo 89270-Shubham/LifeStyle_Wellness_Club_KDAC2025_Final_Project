@@ -42,6 +42,7 @@ import AdminLayout from './admincomponent/AdminLayout';
 import MyBookings from './pages/MyBookings';
 import BookVillaByUser from './pages/BookVillaByUser';
 import Ugallery from './pages/Ugallery';
+import AddGallery from './adminpages/AddGallery';
 
 
 
@@ -86,7 +87,7 @@ function App() {
           <Route path='/adddoctor' element={<AddDoctor />} />
           <Route path='/about' element={<AdminAboutus />} />
           <Route path='/contactus' element={<AdminContactus />} />
-          <Route path='/gallery' element={<Gallery />} />
+          <Route path='/gallery' element={<AddGallery />} />
           <Route path='/update-event/:id' element={<UpdateEvent />} />
           <Route path='/update-villa/:id' element={<UpdateVilla />} />
 
@@ -96,7 +97,7 @@ function App() {
           {/* Sakshi's Routes  */}
 
         <Route path="/adminregister" element={<AdminRegister />} />
-        <Route path="/homeadmin" element={<Home />} />
+        {/* <Route path="/homeadmin" element={<Home />} /> */}
         <Route path="/members" element={<MemberList />} />
         <Route path="/add-doctor" element={<DoctorForm setDoctors={setDoctors} />} />
         <Route path="/doctors" element={<DoctorList doctors={doctors} />} />
